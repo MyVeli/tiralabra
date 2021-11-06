@@ -41,6 +41,7 @@ Seuraavia lähteitä on tässä vaiheessa käytetty tutkimaan Trie rakenteita:
 * [towardsdatascience: implementing trie](https://towardsdatascience.com/implementing-a-trie-data-structure-in-python-in-less-than-100-lines-of-code-a877ea23c1a1)
 * [wikipedia](https://en.wikipedia.org/wiki/Trie)
 * [medium: trie from theory to practice](https://medium.com/@makhmud.islamov/trie-from-theory-to-practice-ab070d6b539c)
+ </br>
 Markov:
 * [towardsdatascience: simulating text with Markov chains](https://towardsdatascience.com/simulating-text-with-markov-chains-in-python-1a27e6d13fc6)
 * [wikipedia](https://en.wikipedia.org/wiki/Markov_chain)
