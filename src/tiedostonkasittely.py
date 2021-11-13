@@ -20,6 +20,7 @@ def load_data_dict():
     #ToDo: Paremmat poikkeukset
     except Exception:
         print("Ongelmia tiedoston avaamisessa.")
+        raise Exception("Ongelmia tiedoston avaamisessa.")
     data = {}
 
     def parse_sentence(lause):

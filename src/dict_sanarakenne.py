@@ -32,5 +32,4 @@ class SanaRakenne:
             luku -= maara
             if luku <= 0:
                 return sana
-        #ToDo: paremmat poikkeukset
-        raise Exception("Ei seuraavaa sanaa")
+        return ""
