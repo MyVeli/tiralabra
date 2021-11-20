@@ -1,11 +1,43 @@
 """Main tiedosto, joka kutsuu ensin tiedostonlukijaa ja sitten markov.py
 tiedoston lauseen luontia."""
-from tiedostonkasittely import load_data_dict
-from markov import luo_lause
+from tiedostonkasittely import load_data_dict, load_data_trie
+from markov import luo_lause, luo_lause_trie
+import konfiguraatio
+from time import time
+#import psutil
 
 if __name__ == "__main__":
-    DICTIONARY = True
-    if DICTIONARY:
+
+    if konfiguraatio.MODE == konfiguraatio.mode_enum.DICT:
         data = load_data_dict()
+        #print(str(psutil.Process().memory_info().rss/1024))
         lause = input("Anna jatkettava lause tai sana: ").split()
-        luo_lause(data, lause)
+        if lause:
+            print(luo_lause(data, lause))
+    if konfiguraatio.MODE == konfiguraatio.mode_enum.TRIE:
+        data = load_data_trie()
+        lause = "temp"
+        #print(str(psutil.Process().memory_info().rss/1024))
+        while lause:
+            lause = input("Anna jatkettava lause tai sana: ").split()
+            if lause:
+                print(luo_lause_trie(data, lause))
+    if konfiguraatio.MODE == konfiguraatio.mode_enum.TEST:
+        alku = time()
+        data_dictionary = load_data_dict()
+        loppu = time()
+        print("Dictionary lataus: "+str(loppu-alku))
+        alku = time()
+        data_trie = load_data_trie()
+        loppu = time()
+        print("Trie lataus: "+str(loppu-alku))
+        alku = time()
+        for i in range(konfiguraatio.HAKUJA):
+            luo_lause(data_dictionary, "on".split())
+        loppu = time()
+        print("Dictionary "+str(konfiguraatio.HAKUJA)+ " hakua kesti: "+str(loppu-alku))
+        alku = time()
+        for i in range(konfiguraatio.HAKUJA):
+            luo_lause_trie(data_trie, "on".split())
+        loppu = time()
+        print("Trie "+str(konfiguraatio.HAKUJA)+ " hakua kesti: "+str(loppu-alku))

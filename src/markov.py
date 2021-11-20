@@ -24,7 +24,7 @@ def luo_lause(data, lause):
         except KeyError:
             break
         except Exception as ex:
-            print("virhe: " + ex)
+            #print("virhe: " + ex)
             break
         if not seuraava:
             break
@@ -32,4 +32,24 @@ def luo_lause(data, lause):
         sana2 = seuraava
         lause.append(seuraava)
         i += 1
-    print(' '.join(lause))
+    return' '.join(lause)
+
+def luo_lause_trie(juuri, lause):
+    lauseenpituus = 30
+    i = 0
+    ASTE = 2
+    if not lause:
+        return
+
+    while i < lauseenpituus:
+        try:
+            if len(lause) < ASTE:
+                seuraava = juuri.anna_sana("".join(lause[i:]))
+            else:
+                seuraava = juuri.anna_sana("".join(lause[i-ASTE+1:]))
+        except Exception as e:
+            #print(e)
+            break
+        lause.append(seuraava)
+        i += 1
+    return ' '.join(lause)

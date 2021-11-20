@@ -1,5 +1,7 @@
 import unittest
-from dict_sanarakenne import SanaRakenne
+import sys
+sys.path.append('..')
+from src.sanarakenne import SanaRakenne
 
 class TestSanaRakenne(unittest.TestCase):
     def setUp(self):

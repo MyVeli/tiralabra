@@ -1,5 +1,4 @@
-"""Sisältää sanarakenne-luokan, jota käytetään sanayhteyksien ja esiintymismäärien tallentamiseen
-dictionary-toteutuksessa.
+"""Sisältää sanarakenne-luokan, jota käytetään sanayhteyksien ja esiintymismäärien tallentamiseen.
 """
 
 from random import randint

@@ -1,10 +1,10 @@
 """Tästä tiedostosta löytyvät metodit datan käsittelyyn telegrammista otettuun
 .json tiedostoihin."""
 
-import json
-import os
-import string
-from dict_sanarakenne import SanaRakenne
+import json, os, string
+import konfiguraatio
+from sanarakenne import SanaRakenne
+from trie import TrieNode
 
 
 def load_data_dict():
@@ -13,14 +13,7 @@ def load_data_dict():
     Returns:
         dictionary: palauttaa parsitut sanayhdistelmät SanaRakenne muodossa
     """
-    path = '/src/data/tkoaly.json'
-    path = os.getcwd() + path
-    try:
-        file = open(path, "r", encoding="utf8")
-    #ToDo: Paremmat poikkeukset
-    except Exception:
-        print("Ongelmia tiedoston avaamisessa.")
-        raise Exception("Ongelmia tiedoston avaamisessa.")
+    file = avaa_tiedosto()
     data = {}
 
     def parse_sentence(lause):
@@ -55,3 +48,29 @@ def load_data_dict():
     for rivi in json.loads(file.read())['messages']:
         parse_sentence(str(rivi['text']))
     return data
+
+def load_data_trie():
+    juuri = TrieNode(sanat=None)
+    file = avaa_tiedosto()
+    for rivi in json.loads(file.read())['messages']:
+        rivi = str(rivi['text']).lower().translate(str.maketrans('', '', string.punctuation)).split()
+        for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
+            juuri.lisaa(rivi[int(i):int(i)+konfiguraatio.ASTE+1])
+    return juuri
+
+def avaa_tiedosto():
+    path = '/src/data/tkoaly.json'
+    path = os.getcwd() + path
+    try:
+        file = open(path, "r", encoding="utf8")
+    #ToDo: Paremmat poikkeukset
+    except Exception:
+        raise Exception("Ongelmia tiedoston avaamisessa.")
+    return file
+
+if __name__ == "__main__":
+    data = load_data_trie()
+    sana = "asdf"
+    while sana:
+        sana = input("Anna sana: ")
+        print(data.anna_sana(sana))

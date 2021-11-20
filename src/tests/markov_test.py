@@ -1,4 +1,4 @@
-"""import unittest
+import unittest
 from unittest.mock import patch
 from markov import luo_lause
 from tiedostonkasittely import load_data_dict
@@ -11,4 +11,4 @@ class TestMarkov(unittest.TestCase):
         try:
             luo_lause(self.data, "sana")
         except:
-            self.assertFalse"""
+            self.assertFalse
