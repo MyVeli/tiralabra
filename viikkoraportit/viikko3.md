@@ -1,20 +1,18 @@
 # Viikkoraportti 2
 ## Tehtyä
-* Materiaalin hankkiminen telegrammista
-* Tiedostonkäsittely
-* Dictionary-toteutus sanaparien ja yhteyksien tallentamiseen
-* Lauseiden muodostus dictionary datasta
-* Koodin siivoaminen pylint avulla
-* Koodin kommentointi
-* Yksikkötestien alkua
+* Lisätty alustava Trie-rakenne ja ketjujen muodostaminen sen avulla
+* Lisätty riippuvuuksien hallinta poetryn avulla
+* Lisätty alustava testausdokumentti
+* Lisätty testausta
+* Lisätty invoke ja taskit sille. Taskeilla saa mm. ajettua yksikkötestit ja testikattavuuden
+* Lisätty konfiguraatiotiedosto, johon on kerätty ohjelman konfiguraatiota
+* Ohjelmaa voi nyt ajaa trie, dictionary tai testi moodissa, mikä on valittavissa konfiguraatiosta
 
 ## Opittua
-* Erilaisia huonoja puolia siinä, että toteuttaa lauseita generoivan markovin-ketjun dictionarylla:
-    * Hankalaa vaihtaa ketjun astetta
-    * Aloittamiseen tarvitsee joko useamman dictionaryn tai käyttäjän pitää antaa täsmälleen niin monta sanaa kuin mikä ketjun aste on tai samaan dictionaryyn tarvitsee tallentaa sanat käyttäen eri mittaisia tupleja. Kaikissa näissä on omat hyvät ja huonot puolensa.
-* Toisaalta tällainen toteutus oli nopea tehdä, mikä voisi olla joissain käytännön sovelluksissa hyödyllistä
-* Markovin ketjun toteuttaminen
-* note: importit on hankalaa saada toimimaan testeissä ja tiedostoissa ilman virtuaaliympäristö jne. -> poetry/venv seuraavaksi
+* Miten Markovin-ketjun voi toteuttaa Trie-rakenteen avulla
+* Miten Trie-rakenne toteutetaan
+* Triellä oli helppoa tehdä koodista sellainen, että ketjun astetta voi muuttaa pelkällä konfiguraatio-arvon muutoksella.
+* Import pathien fiksaamista niin, että sekä yksikkötestit, että ohjelma ajo toimivat järkevästi
 
 ## Kysymyksiä, ongelmia
 * stokastisten algoritmien testaus

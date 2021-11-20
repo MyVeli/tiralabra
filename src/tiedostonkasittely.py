@@ -1,7 +1,9 @@
 """Tästä tiedostosta löytyvät metodit datan käsittelyyn telegrammista otettuun
 .json tiedostoihin."""
 
-import json, os, string
+import json
+import os
+import string
 import konfiguraatio
 from sanarakenne import SanaRakenne
 from trie import TrieNode
@@ -50,15 +52,29 @@ def load_data_dict():
     return data
 
 def load_data_trie():
+    """Lataa datan data-kansiosta trie-rakenteeseen
+
+    Returns:
+        TrieNode: sanat ja sanayhteydet trie-rakenteessa
+    """
     juuri = TrieNode(sanat=None)
     file = avaa_tiedosto()
     for rivi in json.loads(file.read())['messages']:
-        rivi = str(rivi['text']).lower().translate(str.maketrans('', '', string.punctuation)).split()
+        rivi = str(rivi['text']).lower()\
+            .translate(str.maketrans('', '', string.punctuation)).split()
         for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
             juuri.lisaa(rivi[int(i):int(i)+konfiguraatio.ASTE+1])
     return juuri
 
 def avaa_tiedosto():
+    """Avaa tiedoston
+
+    Raises:
+        Exception: Nostaa virheen, mikäli avaaminen ei onnistunut
+
+    Returns:
+        connection: palauttaa tiedostoyhteyden
+    """
     path = '/src/data/tkoaly.json'
     path = os.getcwd() + path
     try:
@@ -67,10 +83,3 @@ def avaa_tiedosto():
     except Exception:
         raise Exception("Ongelmia tiedoston avaamisessa.")
     return file
-
-if __name__ == "__main__":
-    data = load_data_trie()
-    sana = "asdf"
-    while sana:
-        sana = input("Anna sana: ")
-        print(data.anna_sana(sana))

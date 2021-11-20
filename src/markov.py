@@ -1,5 +1,8 @@
 """Luo lauseen annetun lauseen tai sanan perusteella
 """
+
+import konfiguraatio
+
 def luo_lause(data, lause):
     """Luo lauseen käyttämällä SanaRakenne-luokan metodeja
 
@@ -7,15 +10,14 @@ def luo_lause(data, lause):
         data (dictionary): sisältää sanaparit ja SanaRakenne luokat
         lause (string): lause, josta aloitetaan ketjun muodostaminen
     """
-    lauseenpituus = 30
     i = 0
     if not lause:
-        return
+        return ""
     sana2 = lause[-1].lower()
     sana1 = None
     if len(lause) > 1:
         sana1 = lause[len(lause)-1].lower()
-    while i < lauseenpituus:
+    while i < konfiguraatio.MAX_PITUUS:
         try:
             if sana1:
                 seuraava = data[(sana1, sana2)].anna_sana()
@@ -24,7 +26,7 @@ def luo_lause(data, lause):
         except KeyError:
             break
         except Exception as ex:
-            #print("virhe: " + ex)
+            print("virhe: " + ex)
             break
         if not seuraava:
             break
@@ -35,20 +37,29 @@ def luo_lause(data, lause):
     return' '.join(lause)
 
 def luo_lause_trie(juuri, lause):
-    lauseenpituus = 30
-    i = 0
-    ASTE = 2
-    if not lause:
-        return
+    """Luo lauseen trie-rakenteesta pohjalta käyttämällä SanaRakenne-luokan metodia
 
-    while i < lauseenpituus:
+    Args:
+        juuri (TrieNode): Sisältää käytettävän datan
+        lause (string): Sisältää lauseen, jonka pohjalta lause kasataan
+
+    Returns:
+        string: Markovin ketjulla luotu lause
+    """
+    i = 0
+    if not lause:
+        return ""
+
+    while i < konfiguraatio.MAX_PITUUS:
         try:
-            if len(lause) < ASTE:
+            if len(lause) < konfiguraatio.ASTE:
                 seuraava = juuri.anna_sana("".join(lause[i:]))
             else:
-                seuraava = juuri.anna_sana("".join(lause[i-ASTE+1:]))
-        except Exception as e:
-            #print(e)
+                seuraava = juuri.anna_sana("".join(lause[i-konfiguraatio.ASTE+1:]))
+        except KeyError:
+            break
+        except Exception as ex:
+            print(ex)
             break
         lause.append(seuraava)
         i += 1
