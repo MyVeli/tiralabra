@@ -14,4 +14,4 @@ Tiedostossa src/konfiguraatio.py on enum tyyppinen muuttuja MODE. Vaihtamalla se
 
 ## Testiraportit
 ### Tämän hetkinen kattavuus:
-![Testikattavuus](./kuvat/testikattavuus.png)
+![Testikattavuus](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/kuvat/testikattavuus.PNG)

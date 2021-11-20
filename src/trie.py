@@ -49,7 +49,7 @@ class TrieNode:
         ja käyttämällä SanaRakenne-luokkaa seuraavan sanan valitsemiseen
 
         Args:
-            haku (string): sana, tai lause, jota seuraava sana etsitään
+            haku (string): sana, tai lause, josta seuraava sana etsitään
 
         Returns:
             string: seuraava sana
