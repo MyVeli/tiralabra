@@ -18,6 +18,7 @@
 
 ## Kysymyksiä, ongelmia
 * stokastisten algoritmien testaus
+* minun on vaikea saada Triestä yhtä tehokasta toisen asteen Markovin ketjuun kuin Dictionary toteutuksesta
 
 ## Seuraavaksi
 * trien optimointi
