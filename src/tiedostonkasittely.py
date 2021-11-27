@@ -82,13 +82,13 @@ def load_data_trie_text():
     file = avaa_tiedosto()
     rivi = file.read().lower().split()
     for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
-            j = konfiguraatio.ASTE
-            while j >= 0:
-                temp = []
-                temp.append(' '.join(rivi[int(i):int(i)+j]))
-                temp.append(rivi[int(i)+j])
-                juuri.lisaa(temp)
-                j -= 1
+        j = konfiguraatio.ASTE
+        while j >= 0:
+            temp = []
+            temp.append(' '.join(rivi[int(i):int(i)+j]))
+            temp.append(rivi[int(i)+j])
+            juuri.lisaa(temp)
+            j -= 1
     return juuri
 
 def avaa_tiedosto():
