@@ -3,12 +3,12 @@
 
 from enum import Enum
 
-mode_enum = Enum('Mode', 'DICT TRIE TEST')
+mode_enum = Enum('Mode', 'DICT TRIE TEST TEXT')
 #Käytetään mainissa valitsemaan mitä tietorakennetta käytetään
 MODE = mode_enum.TRIE
 #Testihakujen määrä jos test mode valittuna
 HAKUJA = 100000
 #Ketjun aste. Vaikuttaa vain Trie rakenteeseen
-ASTE = 3
+ASTE = 2
 #Muodostettavan lauseen maksimipituus
-MAX_PITUUS = 30
+MAX_PITUUS = 100

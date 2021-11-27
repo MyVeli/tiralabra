@@ -63,8 +63,32 @@ def load_data_trie():
         rivi = str(rivi['text']).lower()\
             .translate(str.maketrans('', '', string.punctuation)).split()
         for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
-            juuri.lisaa(rivi[int(i):int(i)+konfiguraatio.ASTE+1])
+            j = konfiguraatio.ASTE
+            while j >= 0:
+                temp = []
+                temp.append(' '.join(rivi[int(i):int(i)+j]))
+                temp.append(rivi[int(i)+j])
+                juuri.lisaa(temp)
+                j -= 1     
+        """for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
+            juuri.lisaa(rivi[int(i):int(i)+konfiguraatio.ASTE+1])"""
     return juuri
+
+"""    juuri = TrieNode(sanat=None)
+    file = avaa_tiedosto()
+    rivi = file.read().lower().split()#\
+            #.translate(str.maketrans('', '', string.punctuation)).split()
+    for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
+        for j in range(konfiguraatio.ASTE):
+            temp = []
+            temp.append(' '.join(rivi[int(i)+int(j):int(i)+konfiguraatio.ASTE]))
+            temp.append(rivi[int(i)+konfiguraatio.ASTE])
+            juuri.lisaa(temp)
+    return juuri"""
+
+
+
+
 
 def avaa_tiedosto():
     """Avaa tiedoston

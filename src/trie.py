@@ -16,7 +16,7 @@ class TrieNode:
         """Lisää uuden sanaryhmän rakenteeseen ja luo yhteydet sanojen väleille
 
         Args:
-            sanat (stringejä sisältä taulukko): sisältää peräkkäisiä sanoja taulukossa
+            sanat (stringejä sisältävä taulukko): sisältää peräkkäisiä sanoja taulukossa
         """
         if not sanat:
             return

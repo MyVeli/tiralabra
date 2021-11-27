@@ -4,11 +4,21 @@ from time import time
 from tiedostonkasittely import load_data_dict, load_data_trie
 from markov import luo_lause, luo_lause_trie
 import konfiguraatio
+import tiedostonkasittely_text
 #import psutil
 
 if __name__ == "__main__":
 
-    if konfiguraatio.MODE == konfiguraatio.mode_enum.DICT:
+    if konfiguraatio.MODE == konfiguraatio.mode_enum.TEXT:
+        data =  tiedostonkasittely_text.load_data_trie()
+        while True:
+            lause = input("Anna jatkettava lause tai sana (tyhjä lopettaa): ").split()
+            if lause:
+                print(luo_lause_trie(data, lause))
+            else:
+                break
+
+    elif konfiguraatio.MODE == konfiguraatio.mode_enum.DICT:
         data = load_data_dict()
         #print(str(psutil.Process().memory_info().rss/1024))
         while True:
@@ -18,7 +28,7 @@ if __name__ == "__main__":
             else:
                 break
 
-    if konfiguraatio.MODE == konfiguraatio.mode_enum.TRIE:
+    elif konfiguraatio.MODE == konfiguraatio.mode_enum.TRIE:
         data = load_data_trie()
         #print(str(psutil.Process().memory_info().rss/1024))
         while True:
@@ -28,7 +38,7 @@ if __name__ == "__main__":
             else:
                 break
 
-    if konfiguraatio.MODE == konfiguraatio.mode_enum.TEST:
+    elif konfiguraatio.MODE == konfiguraatio.mode_enum.TEST:
         alku = time()
         data_dictionary = load_data_dict()
         loppu = time()
