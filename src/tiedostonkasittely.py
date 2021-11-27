@@ -69,26 +69,27 @@ def load_data_trie():
                 temp.append(' '.join(rivi[int(i):int(i)+j]))
                 temp.append(rivi[int(i)+j])
                 juuri.lisaa(temp)
-                j -= 1     
-        """for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
-            juuri.lisaa(rivi[int(i):int(i)+konfiguraatio.ASTE+1])"""
+                j -= 1
     return juuri
 
-"""    juuri = TrieNode(sanat=None)
+def load_data_trie_text():
+    """Lataa datan data-kansiosta trie-rakenteeseen
+
+    Returns:
+        TrieNode: sanat ja sanayhteydet trie-rakenteessa
+    """
+    juuri = TrieNode(sanat=None)
     file = avaa_tiedosto()
-    rivi = file.read().lower().split()#\
-            #.translate(str.maketrans('', '', string.punctuation)).split()
+    rivi = file.read().lower().split()
     for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
-        for j in range(konfiguraatio.ASTE):
-            temp = []
-            temp.append(' '.join(rivi[int(i)+int(j):int(i)+konfiguraatio.ASTE]))
-            temp.append(rivi[int(i)+konfiguraatio.ASTE])
-            juuri.lisaa(temp)
-    return juuri"""
-
-
-
-
+            j = konfiguraatio.ASTE
+            while j >= 0:
+                temp = []
+                temp.append(' '.join(rivi[int(i):int(i)+j]))
+                temp.append(rivi[int(i)+j])
+                juuri.lisaa(temp)
+                j -= 1
+    return juuri
 
 def avaa_tiedosto():
     """Avaa tiedoston
@@ -99,7 +100,10 @@ def avaa_tiedosto():
     Returns:
         connection: palauttaa tiedostoyhteyden
     """
-    path = '/src/data/tkoaly.json'
+    if konfiguraatio.MODE == konfiguraatio.mode_enum.TEXT:
+        path = '/src/data/vihr_ohjelma.txt'
+    else:
+        path = '/src/data/tkoaly.json'
     path = os.getcwd() + path
     try:
         file = open(path, "r", encoding="utf8")

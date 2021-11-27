@@ -1,16 +1,15 @@
 """Main tiedosto, joka kutsuu ensin tiedostonlukijaa ja sitten markov.py
 tiedoston lauseen luontia."""
 from time import time
-from tiedostonkasittely import load_data_dict, load_data_trie
+from tiedostonkasittely import load_data_dict, load_data_trie, load_data_trie_text
 from markov import luo_lause, luo_lause_trie
 import konfiguraatio
-import tiedostonkasittely_text
 #import psutil
 
 if __name__ == "__main__":
 
     if konfiguraatio.MODE == konfiguraatio.mode_enum.TEXT:
-        data =  tiedostonkasittely_text.load_data_trie()
+        data = load_data_trie_text()
         while True:
             lause = input("Anna jatkettava lause tai sana (tyhjä lopettaa): ").split()
             if lause:
