@@ -3,7 +3,7 @@
 ## Dokumentaatio
 * [määrittelydokumentti](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/maarittely.md)
 * [testausdokumentaatio](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/testaus.md)
-* [toteutusdokumentaatio](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/testaus.md)
+* [toteutusdokumentaatio](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/toteutus.md)
 
 ## Viikkoraportit
 * [viikko1](https://github.com/MyVeli/tiralabra/blob/master/viikkoraportit/viikko1.md)

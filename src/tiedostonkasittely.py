@@ -66,7 +66,7 @@ def load_data_trie():
             j = konfiguraatio.ASTE
             while j >= 0:
                 temp = []
-                temp.append(' '.join(rivi[int(i):int(i)+j]))
+                temp.append(rivi[int(i):int(i)+j])
                 temp.append(rivi[int(i)+j])
                 juuri.lisaa(temp)
                 j -= 1

@@ -1,13 +1,14 @@
 """Toteuttaa Trie rakenteen käyttämällä SanaRakenne-luokkaa yhteyksiä varten
 """
-
+import string
 from sanarakenne import SanaRakenne
+import konfiguraatio
 
 class TrieNode:
     """Yksittäinen node rakenteessa
     """
     def __init__(self, sanat):
-        self.seuraavat_kirjaimet = {}
+        self.seuraavat_sanat = {}
         self.yhteydet = None
         if sanat:
             self.lisaa(sanat)
@@ -20,18 +21,19 @@ class TrieNode:
         """
         if not sanat:
             return
-        if len(sanat[0]) == 0 and len(sanat) == 1:
+        """if len(sanat[0]) == 0 and len(sanat) == 1:
             #self.lisaa_yhteys(".")
-            return
-        elif len(sanat[0]) == 0:
+            return"""
+        if len(sanat[0]) == 0:
             self.__lisaa_yhteys(sanat[1])
-            sanat = sanat[1:]
-        kirjain = sanat[0][0]
+            return
+        #sanat = sanat[1:]
+        sana = sanat[0][0]
         sanat[0] = sanat[0][1:]
-        if kirjain in self.seuraavat_kirjaimet:
-            self.seuraavat_kirjaimet[kirjain].lisaa(sanat)
+        if sana in self.seuraavat_sanat:
+            self.seuraavat_sanat[sana].lisaa(sanat)
         else:
-            self.seuraavat_kirjaimet[kirjain] = TrieNode(sanat)
+            self.seuraavat_sanat[sana] = TrieNode(sanat)
 
     def __lisaa_yhteys(self, lisattava):
         """lisää yhteyden sanojen välille käytämällä SanaRakenne-luokan toiminnallisuutta
@@ -56,4 +58,4 @@ class TrieNode:
         """
         if not haku:
             return self.yhteydet.anna_sana()
-        return self.seuraavat_kirjaimet[haku[0]].anna_sana(haku[1:])
+        return self.seuraavat_sanat[haku[0]].anna_sana(haku[1:])

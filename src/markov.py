@@ -53,10 +53,10 @@ def luo_lause_trie(juuri, lause):
     while i < konfiguraatio.MAX_PITUUS:
         try:
             if len(lause) <= konfiguraatio.ASTE:
-                seuraava = juuri.anna_sana(" ".join(lause[:]))
+                seuraava = juuri.anna_sana(lause)
             else:
                 #print(" ".join(lause[(len(lause)-konfiguraatio.ASTE):]))
-                seuraava = juuri.anna_sana(" ".join(lause[(len(lause)-konfiguraatio.ASTE):]))
+                seuraava = juuri.anna_sana(lause[(len(lause)-konfiguraatio.ASTE):])
         except KeyError:
             break
         except Exception as ex:
