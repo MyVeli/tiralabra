@@ -10,3 +10,4 @@
 * [viikko2](https://github.com/MyVeli/tiralabra/blob/master/viikkoraportit/viikko2.md)
 * [viikko3](https://github.com/MyVeli/tiralabra/blob/master/viikkoraportit/viikko3.md)
 * [viikko4](https://github.com/MyVeli/tiralabra/blob/master/viikkoraportit/viikko4.md)
+* [viikko5](https://github.com/MyVeli/tiralabra/blob/master/viikkoraportit/viikko5.md)
