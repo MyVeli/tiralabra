@@ -1,4 +1,4 @@
-# Viikkoraportti 5
+# Viikkoraportti 6
 ## Tehtyä
 * Vertaisarviointi
 * Korjattu bugeja ja parannettu koodin kommentointia ja laatua

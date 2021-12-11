@@ -11,3 +11,4 @@
 * [viikko3](https://github.com/MyVeli/tiralabra/blob/master/viikkoraportit/viikko3.md)
 * [viikko4](https://github.com/MyVeli/tiralabra/blob/master/viikkoraportit/viikko4.md)
 * [viikko5](https://github.com/MyVeli/tiralabra/blob/master/viikkoraportit/viikko5.md)
+* [viikko6](https://github.com/MyVeli/tiralabra/blob/master/viikkoraportit/viikko6.md)

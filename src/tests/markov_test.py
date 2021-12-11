@@ -24,7 +24,7 @@ class TestMarkov(unittest.TestCase):
 
     def test_monta_sanaa_dict(self):
         try:
-            sana = luo_lause(self.data_dict, "monen sanan lause")
+            sana = luo_lause_dict(self.data_dict, "monen sanan lause")
             self.assertEqual(isinstance(sana, str))
         except:
             self.assertFalse
