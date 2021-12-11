@@ -15,7 +15,7 @@ def load_data_dict():
     Returns:
         dictionary: palauttaa parsitut sanayhdistelmät SanaRakenne muodossa
     """
-    file = avaa_tiedosto()
+
     data = {}
 
     def parse_sentence(lause):
@@ -27,6 +27,7 @@ def load_data_dict():
         lause = lause.split()
         edellinen1 = ""
         edellinen2 = ""
+
         for i in lause:
             i = i.lower().translate(str.maketrans('', '', string.punctuation))
             if edellinen1 == "":
@@ -47,29 +48,34 @@ def load_data_dict():
             edellinen2 = edellinen1
             edellinen1 = i
 
-    for rivi in json.loads(file.read())['messages']:
-        parse_sentence(str(rivi['text']))
+    polku = os.getcwd() + '/src/data/telegram'
+    for tiedosto in os.listdir(polku):
+        file = __avaa_tiedosto(polku+'/'+tiedosto)
+        for rivi in json.loads(file.read())['messages']:
+            parse_sentence(str(rivi['text']))
     return data
 
-def load_data_trie():
+def load_data_trie_telegram():
     """Lataa datan data-kansiosta trie-rakenteeseen
 
     Returns:
         TrieNode: sanat ja sanayhteydet trie-rakenteessa
     """
     juuri = TrieNode(sanat=None)
-    file = avaa_tiedosto()
-    for rivi in json.loads(file.read())['messages']:
-        rivi = str(rivi['text']).lower()\
-            .translate(str.maketrans('', '', string.punctuation)).split()
-        for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
-            j = konfiguraatio.ASTE
-            while j >= 0:
-                temp = []
-                temp.append(rivi[int(i):int(i)+j])
-                temp.append(rivi[int(i)+j])
-                juuri.lisaa(temp)
-                j -= 1
+    polku = os.getcwd() + '/src/data/telegram'
+    for tiedosto in os.listdir(polku):
+        file = __avaa_tiedosto(polku+'/'+tiedosto)
+        for rivi in json.loads(file.read())['messages']:
+            rivi = str(rivi['text']).lower()\
+                .translate(str.maketrans('', '', string.punctuation)).split()
+            for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
+                j = konfiguraatio.ASTE
+                while j >= 0:
+                    temp = []
+                    temp.append(rivi[int(i):int(i)+j])
+                    temp.append(rivi[int(i)+j])
+                    juuri.lisaa(temp)
+                    j -= 1
     return juuri
 
 def load_data_trie_text():
@@ -79,19 +85,26 @@ def load_data_trie_text():
         TrieNode: sanat ja sanayhteydet trie-rakenteessa
     """
     juuri = TrieNode(sanat=None)
-    file = avaa_tiedosto()
-    rivi = file.read().lower().split()
-    for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
-        j = konfiguraatio.ASTE
-        while j >= 0:
-            temp = []
-            temp.append(' '.join(rivi[int(i):int(i)+j]))
-            temp.append(rivi[int(i)+j])
-            juuri.lisaa(temp)
-            j -= 1
+    polku = os.getcwd() + '/src/data/text'
+    for tiedosto in os.listdir(polku):
+        file = __avaa_tiedosto(polku+'/'+tiedosto)
+        rivi = file.read().lower().split()
+        for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
+            j = konfiguraatio.ASTE
+            while j >= 0:
+                temp = []
+                temp.append(rivi[int(i):int(i)+j])
+                temp.append(rivi[int(i)+j])
+                juuri.lisaa(temp)
+                j -= 1
+                """ temp = []
+                temp.append(' '.join(rivi[int(i):int(i)+j]))
+                temp.append(rivi[int(i)+j])
+                juuri.lisaa(temp)
+                j -= 1"""
     return juuri
 
-def avaa_tiedosto():
+def __avaa_tiedosto(polku):
     """Avaa tiedoston
 
     Raises:
@@ -100,13 +113,8 @@ def avaa_tiedosto():
     Returns:
         connection: palauttaa tiedostoyhteyden
     """
-    if konfiguraatio.MODE == konfiguraatio.mode_enum.TEXT:
-        path = '/src/data/vihr_ohjelma.txt'
-    else:
-        path = '/src/data/tkoaly.json'
-    path = os.getcwd() + path
     try:
-        file = open(path, "r", encoding="utf8")
+        file = open(polku, "r", encoding="utf8")
     #ToDo: Paremmat poikkeukset
     except Exception:
         raise Exception("Ongelmia tiedoston avaamisessa.")

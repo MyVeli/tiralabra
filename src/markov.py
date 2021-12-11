@@ -3,7 +3,7 @@
 
 import konfiguraatio
 
-def luo_lause(data, lause):
+def luo_lause_dict(data, lause):
     """Luo lauseen käyttämällä SanaRakenne-luokan metodeja
 
     Args:

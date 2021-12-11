@@ -1,8 +1,6 @@
 """Toteuttaa Trie rakenteen käyttämällä SanaRakenne-luokkaa yhteyksiä varten
 """
-import string
 from sanarakenne import SanaRakenne
-import konfiguraatio
 
 class TrieNode:
     """Yksittäinen node rakenteessa
