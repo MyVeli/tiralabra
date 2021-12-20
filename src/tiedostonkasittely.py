@@ -74,7 +74,7 @@ def load_data_trie_telegram():
                     temp = []
                     temp.append(rivi[int(i):int(i)+j])
                     temp.append(rivi[int(i)+j])
-                    juuri.lisaa(temp)
+                    juuri.lisaa(temp, alkupera=str(tiedosto))
                     j -= 1
     return juuri
 
@@ -95,13 +95,8 @@ def load_data_trie_text():
                 temp = []
                 temp.append(rivi[int(i):int(i)+j])
                 temp.append(rivi[int(i)+j])
-                juuri.lisaa(temp)
+                juuri.lisaa(temp, alkupera=tiedosto)
                 j -= 1
-                """ temp = []
-                temp.append(' '.join(rivi[int(i):int(i)+j]))
-                temp.append(rivi[int(i)+j])
-                juuri.lisaa(temp)
-                j -= 1"""
     return juuri
 
 def __avaa_tiedosto(polku):

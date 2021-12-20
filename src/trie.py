@@ -1,17 +1,19 @@
 """Toteuttaa Trie rakenteen käyttämällä SanaRakenne-luokkaa yhteyksiä varten
 """
 from sanarakenne import SanaRakenne
+from random import randint
 
 class TrieNode:
     """Yksittäinen node rakenteessa
     """
     def __init__(self, sanat):
         self.seuraavat_sanat = {}
-        self.yhteydet = None
+        self.yhteydet = {}
+        self.yhteydet_koko = 0
         if sanat:
             self.lisaa(sanat)
 
-    def lisaa(self, sanat):
+    def lisaa(self, sanat, alkupera = None):
         """Lisää uuden sanaryhmän rakenteeseen ja luo yhteydet sanojen väleille
 
         Args:
@@ -23,28 +25,28 @@ class TrieNode:
             #self.lisaa_yhteys(".")
             return"""
         if len(sanat[0]) == 0:
-            self.__lisaa_yhteys(sanat[1])
+            self.__lisaa_yhteys(sanat[1], alkupera)
             return
-        #sanat = sanat[1:]
         sana = sanat[0][0]
         sanat[0] = sanat[0][1:]
         if sana in self.seuraavat_sanat:
-            self.seuraavat_sanat[sana].lisaa(sanat)
+            self.seuraavat_sanat[sana].lisaa(sanat, alkupera)
         else:
             self.seuraavat_sanat[sana] = TrieNode(sanat)
 
-    def __lisaa_yhteys(self, lisattava):
+    def __lisaa_yhteys(self, lisattava, alkupera):
         """lisää yhteyden sanojen välille käytämällä SanaRakenne-luokan toiminnallisuutta
 
         Args:
             lisattava (string): lisättävä sana
         """
-        if self.yhteydet is None:
-            self.yhteydet = SanaRakenne(lisattava)
+        self.yhteydet_koko += 1
+        if alkupera not in self.yhteydet:
+            self.yhteydet[alkupera] = SanaRakenne(lisattava)
         else:
-            self.yhteydet.lisaa_sana(lisattava)
+            self.yhteydet[alkupera].lisaa_sana(lisattava)
 
-    def anna_sana(self, haku):
+    def anna_sana(self, haku, alkupera='any'):
         """Etsii parametrina annetulle sanalle tai lauseelle seuraavan sanan Trie-rakenteesta
         ja käyttämällä SanaRakenne-luokkaa seuraavan sanan valitsemiseen
 
@@ -55,5 +57,12 @@ class TrieNode:
             string: seuraava sana
         """
         if not haku:
-            return self.yhteydet.anna_sana()
-        return self.seuraavat_sanat[haku[0]].anna_sana(haku[1:])
+            if alkupera == 'any':
+                satunnainen_tiedosto = randint(0, self.yhteydet_koko)
+                for i in self.yhteydet.values():
+                    satunnainen_tiedosto -= i.koko
+                    if satunnainen_tiedosto <= 0:
+                        return i.anna_sana()
+            else:
+                return self.yhteydet[alkupera].anna_sana()
+        return self.seuraavat_sanat[haku[0]].anna_sana(haku[1:], alkupera)
