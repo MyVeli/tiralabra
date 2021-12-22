@@ -1,9 +1,7 @@
 """Luo lauseen annetun lauseen tai sanan perusteella
 """
 
-import konfiguraatio
-
-def luo_lause_dict(data, lause):
+def luo_lause_dict(data, lause, konfiguraatio):
     """Luo lauseen käyttämällä SanaRakenne-luokan metodeja
 
     Args:
@@ -17,7 +15,7 @@ def luo_lause_dict(data, lause):
     sana1 = None
     if len(lause) > 1:
         sana1 = lause[len(lause)-1].lower()
-    while i < konfiguraatio.MAX_PITUUS:
+    while i < konfiguraatio.max_pituus:
         try:
             if sana1:
                 seuraava = data[(sana1, sana2)].anna_sana()
@@ -36,7 +34,7 @@ def luo_lause_dict(data, lause):
         i += 1
     return' '.join(lause)
 
-def luo_lause_trie(juuri, lause):
+def luo_lause_trie(juuri, lause, konfiguraatio, tiedosto="Any"):
     """Luo lauseen trie-rakenteesta pohjalta käyttämällä SanaRakenne-luokan metodia
 
     Args:
@@ -50,13 +48,13 @@ def luo_lause_trie(juuri, lause):
     if not lause:
         return ""
 
-    while i < konfiguraatio.MAX_PITUUS:
+    while i < konfiguraatio.max_pituus:
         try:
-            if len(lause) <= konfiguraatio.ASTE:
-                seuraava = juuri.anna_sana(lause)
+            if len(lause) <= konfiguraatio.aste:
+                seuraava = juuri.anna_sana(lause, tiedosto)
             else:
                 #print(" ".join(lause[(len(lause)-konfiguraatio.ASTE):]))
-                seuraava = juuri.anna_sana(lause[(len(lause)-konfiguraatio.ASTE):])
+                seuraava = juuri.anna_sana(lause[(len(lause)-konfiguraatio.aste):], tiedosto)
         except KeyError:
             break
         except Exception as ex:

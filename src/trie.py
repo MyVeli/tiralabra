@@ -6,12 +6,12 @@ from random import randint
 class TrieNode:
     """Yksittäinen node rakenteessa
     """
-    def __init__(self, sanat):
+    def __init__(self, sanat=None, alkupera=None):
         self.seuraavat_sanat = {}
         self.yhteydet = {}
         self.yhteydet_koko = 0
         if sanat:
-            self.lisaa(sanat)
+            self.lisaa(sanat, alkupera)
 
     def lisaa(self, sanat, alkupera = None):
         """Lisää uuden sanaryhmän rakenteeseen ja luo yhteydet sanojen väleille
@@ -32,7 +32,7 @@ class TrieNode:
         if sana in self.seuraavat_sanat:
             self.seuraavat_sanat[sana].lisaa(sanat, alkupera)
         else:
-            self.seuraavat_sanat[sana] = TrieNode(sanat)
+            self.seuraavat_sanat[sana] = TrieNode(sanat, alkupera)
 
     def __lisaa_yhteys(self, lisattava, alkupera):
         """lisää yhteyden sanojen välille käytämällä SanaRakenne-luokan toiminnallisuutta
@@ -46,7 +46,7 @@ class TrieNode:
         else:
             self.yhteydet[alkupera].lisaa_sana(lisattava)
 
-    def anna_sana(self, haku, alkupera='any'):
+    def anna_sana(self, haku, alkupera='Any'):
         """Etsii parametrina annetulle sanalle tai lauseelle seuraavan sanan Trie-rakenteesta
         ja käyttämällä SanaRakenne-luokkaa seuraavan sanan valitsemiseen
 
@@ -57,7 +57,7 @@ class TrieNode:
             string: seuraava sana
         """
         if not haku:
-            if alkupera == 'any':
+            if alkupera == 'Any':
                 satunnainen_tiedosto = randint(0, self.yhteydet_koko)
                 for i in self.yhteydet.values():
                     satunnainen_tiedosto -= i.koko

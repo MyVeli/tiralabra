@@ -3,45 +3,54 @@ tiedoston lauseen luontia."""
 from time import time
 from tiedostonkasittely import load_data_dict, load_data_trie_telegram, load_data_trie_text
 from markov import luo_lause_dict, luo_lause_trie
+import ui_komennot
 import konfiguraatio
-#import psutil
 
 if __name__ == "__main__":
 
-    # Tämä lukee kaikki kansiossa text olevat tiedostot ja tallentaa niiden datan trie-rakenteeseen
-    if konfiguraatio.MODE == konfiguraatio.mode_enum.TEXT:
-        data = load_data_trie_text()
-        while True:
-            lause = input("Anna jatkettava lause tai sana (tyhjä lopettaa): ").split()
-            if lause:
-                print(luo_lause_trie(data, lause))
+    konf = konfiguraatio.Konfiguraatio()
+    data = None
+    print("Tervetuloa Velin markov-ohjelmaan!")
+    ui_komennot.help()
+    while True:
+        komento = input("Anna komento: ")
+        if len(komento) == 0:
+            break
+        elif komento == "help":
+            ui_komennot.help()
+        elif komento == "konfiguraatio":
+            ui_komennot.muuta_konfiguraatiota(konf)
+        elif komento == "lataa":
+            data = None
+            if konf.mode == konfiguraatio.mode_enum.MOLEMMAT:
+                data = load_data_trie_text(konf)
+                data = load_data_trie_telegram(konf, data)
+            elif konf.mode == konfiguraatio.mode_enum.TEXT:
+                data = load_data_trie_text(konf)
+            elif konf.mode == konfiguraatio.mode_enum.TRIE:
+                data = load_data_trie_telegram(konf)
+            elif konf.mode == konfiguraatio.mode_enum.DICT:
+                data = load_data_dict()
+            if data is not None:
+                print("Data ladattu.")
             else:
-                break
-
-    # Lukee kaikki kansion telegram tiedostot ja tallentaa niiden datan dictionary rakenteeseen
-    elif konfiguraatio.MODE == konfiguraatio.mode_enum.DICT:
-        data = load_data_dict()
-        #print(str(psutil.Process().memory_info().rss/1024))
-        while True:
-            lause = input("Anna jatkettava lause tai sana (tyhjä lopettaa): ").split()
-            if lause:
-                print(luo_lause_dict(data, lause))
-            else:
-                break
+                print("Virhe konfiguraation kanssa.")
+        elif komento == "markov":
+            if data is None:
+                print("Lataa ensin dataa.")
+                continue
+            ui_komennot.markov(data, konf)
+        elif komento == "peli":
+            if data is None:
+                print("Lataa ensin dataa")
+            ui_komennot.peli(data, konf)
+        elif komento == "test":
+            break
+        else:
+            print("Tuntematon komento.")
     
-    # Lukee kaikki kansion telegram tiedostot ja tallentaa niiden datan dictionary rakenteeseen
-    elif konfiguraatio.MODE == konfiguraatio.mode_enum.TRIE:
-        data = load_data_trie_telegram()
-        #print(str(psutil.Process().memory_info().rss/1024))
-        while True:
-            lause = input("Anna jatkettava lause tai sana (tyhjä lopettaa): ").split()
-            if lause:
-                print(luo_lause_trie(data, lause))
-            else:
-                break
-
     # Lataa datan sekä trie, että dictionary -rakenteisiin ja vertaa niiden suoritusnopeutta
-    elif konfiguraatio.MODE == konfiguraatio.mode_enum.TEST:
+    if konf.mode == konfiguraatio.mode_enum.TEST:
         alku = time()
         data_dictionary = load_data_dict()
         loppu = time()
@@ -51,7 +60,7 @@ if __name__ == "__main__":
         loppu = time()
         print("Trie lataus: "+str(loppu-alku))
         alku = time()
-        for i in range(konfiguraatio.HAKUJA):
+        for i in range(konfiguraatio.hakuja):
             luo_lause_dict(data_dictionary, "on".split())
         loppu = time()
         print("Dictionary "+str(konfiguraatio.HAKUJA)+ " hakua kesti: "+str(loppu-alku))
