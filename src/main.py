@@ -45,27 +45,25 @@ if __name__ == "__main__":
                 print("Lataa ensin dataa")
             ui_komennot.peli(data, konf)
         elif komento == "test":
-            break
+            alku = time()
+            data_dictionary = load_data_dict()
+            loppu = time()
+            print("Dictionary lataus: "+str(loppu-alku))
+            alku = time()
+            data_trie = load_data_trie_telegram(konf)
+            loppu = time()
+            print("Trie lataus: "+str(loppu-alku))
+            alku = time()
+            for i in range(konf.hakuja):
+                luo_lause_dict(data_dictionary, "on".split(), konf)
+            loppu = time()
+            print("Dictionary "+str(konf.hakuja)+ " hakua kesti: "+str(loppu-alku))
+            alku = time()
+            for i in range(konf.hakuja):
+                luo_lause_trie(data_trie, "on".split(), konf)
+            loppu = time()
+            print("Trie "+str(konf.hakuja)+ " hakua kesti: "+str(loppu-alku))
         else:
             print("Tuntematon komento.")
     
     # Lataa datan sekä trie, että dictionary -rakenteisiin ja vertaa niiden suoritusnopeutta
-    if konf.mode == konfiguraatio.mode_enum.TEST:
-        alku = time()
-        data_dictionary = load_data_dict()
-        loppu = time()
-        print("Dictionary lataus: "+str(loppu-alku))
-        alku = time()
-        data_trie = load_data_trie_telegram()
-        loppu = time()
-        print("Trie lataus: "+str(loppu-alku))
-        alku = time()
-        for i in range(konfiguraatio.hakuja):
-            luo_lause_dict(data_dictionary, "on".split())
-        loppu = time()
-        print("Dictionary "+str(konfiguraatio.HAKUJA)+ " hakua kesti: "+str(loppu-alku))
-        alku = time()
-        for i in range(konfiguraatio.HAKUJA):
-            luo_lause_trie(data_trie, "on".split())
-        loppu = time()
-        print("Trie "+str(konfiguraatio.HAKUJA)+ " hakua kesti: "+str(loppu-alku))
