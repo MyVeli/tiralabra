@@ -5,11 +5,12 @@ import konfiguraatio
 
 class TestTrie(unittest.TestCase):
     def setUp(self):
+        self.konf = konfiguraatio.Konfiguraatio()
         self.juuri = TrieNode("")
         rivi = "tämä on testi lause".lower()\
             .translate(str.maketrans('', '', string.punctuation)).split()
-        for i in range(len(rivi)-(konfiguraatio.ASTE+1)):
-            j = konfiguraatio.ASTE
+        for i in range(len(rivi)-(self.konf.aste+1)):
+            j = self.konf.aste
             while j >= 0:
                 temp = []
                 temp.append(rivi[int(i):int(i)+j])

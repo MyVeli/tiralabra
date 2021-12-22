@@ -43,6 +43,10 @@ def muuta_konfiguraatiota(konfiguraatio):
         elif mode == "molemmat":
             konfiguraatio.mode = mode_enum.MOLEMMAT
             break
+    while True:
+        pituus = input("Anna uusi luodun tekstin maksimipituus sanojen määränä: ")
+        if pituus.isnumeric() and int(pituus) > 0:
+            konfiguraatio.max_pituus = pituus
 
 def peli(data, konfiguraatio):
     tiedostot = ""
