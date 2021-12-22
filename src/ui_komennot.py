@@ -1,6 +1,8 @@
 import os
 from random import randint
+from time import time
 
+from tiedostonkasittely import load_data_dict, load_data_trie_telegram, load_data_trie_text
 from konfiguraatio import mode_enum
 from markov import luo_lause_trie, luo_lause_dict
 
@@ -80,3 +82,41 @@ def markov(data, konfiguraatio):
         print(luo_lause_trie(data, lause, konfiguraatio))
     elif konfiguraatio.mode == mode_enum.MOLEMMAT:
         print(luo_lause_trie(data, lause, konfiguraatio))
+
+def lataa(konfiguraatio):
+    data = None
+    if konfiguraatio.mode == mode_enum.MOLEMMAT:
+        data = load_data_trie_text(konfiguraatio)
+        data = load_data_trie_telegram(konfiguraatio, data)
+    elif konfiguraatio.mode == mode_enum.TEXT:
+        data = load_data_trie_text(konfiguraatio)
+    elif konfiguraatio.mode == mode_enum.TRIE:
+        data = load_data_trie_telegram(konfiguraatio)
+    elif konfiguraatio.mode == mode_enum.DICT:
+        data = load_data_dict()
+    if data is not None:
+        print("Data ladattu.")
+        return data
+    else:
+        print("Virhe konfiguraation kanssa.")
+        return None
+
+def test(konfiguraatio):
+    alku = time()
+    data_dictionary = load_data_dict()
+    loppu = time()
+    print("Dictionary lataus: "+str(loppu-alku))
+    alku = time()
+    data_trie = load_data_trie_telegram(konfiguraatio)
+    loppu = time()
+    print("Trie lataus: "+str(loppu-alku))
+    alku = time()
+    for i in range(konfiguraatio.hakuja):
+        luo_lause_dict(data_dictionary, "on".split(), konfiguraatio)
+    loppu = time()
+    print("Dictionary "+str(konfiguraatio.hakuja)+ " hakua kesti: "+str(loppu-alku))
+    alku = time()
+    for i in range(konfiguraatio.hakuja):
+        luo_lause_trie(data_trie, "on".split(), konfiguraatio)
+    loppu = time()
+    print("Trie "+str(konfiguraatio.hakuja)+ " hakua kesti: "+str(loppu-alku))

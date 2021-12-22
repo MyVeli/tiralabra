@@ -3,7 +3,7 @@
 
 from enum import Enum
 
-mode_enum = Enum('Mode', 'DICT TRIE TEST TEXT MOLEMMAT')
+mode_enum = Enum('Mode', 'DICT TRIE TEXT MOLEMMAT')
 
 class Konfiguraatio:
     def __init__(self):        
