@@ -1,21 +1,19 @@
 """Main tiedosto, joka kutsuu ensin tiedostonlukijaa ja sitten markov.py
 tiedoston lauseen luontia."""
-from markov import luo_lause_dict, luo_lause_trie
 import ui_komennot
 import konfiguraatio
 
 if __name__ == "__main__":
-
     konf = konfiguraatio.Konfiguraatio()
     data = None
     print("Tervetuloa Velin markov-ohjelmaan!")
-    ui_komennot.help()
+    ui_komennot.tulosta_komennot()
     while True:
-        komento = input("Anna komento: ")
+        komento = input("Anna komento (tyhjä lopettaa): ")
         if len(komento) == 0:
             break
         elif komento == "help":
-            ui_komennot.help()
+            ui_komennot.tulosta_komennot()
         elif komento == "konfiguraatio":
             ui_komennot.muuta_konfiguraatiota(konf)
         elif komento == "lataa":

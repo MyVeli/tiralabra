@@ -3,10 +3,13 @@
 
 from enum import Enum
 
+# luokan käyttämä tietotyyppi
 mode_enum = Enum('Mode', 'DICT TRIE TEXT MOLEMMAT')
 
 class Konfiguraatio:
-    def __init__(self):        
+    """Konfiguraatio-luokka, joka sisältää ohjelman asetukset
+    """
+    def __init__(self):
         #Käytetään mainissa valitsemaan mitä tietorakennetta käytetään
         self.mode = mode_enum.MOLEMMAT
         #Testihakujen määrä jos test mode valittuna
