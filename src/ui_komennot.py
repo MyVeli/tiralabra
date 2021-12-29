@@ -59,6 +59,9 @@ def muuta_konfiguraatiota(konfiguraatio):
         if pituus.isnumeric() and int(pituus) > 0:
             konfiguraatio.max_pituus = int(pituus)
             break
+        elif not pituus:
+            break
+    lataa(konfiguraatio)
 
 def peli(data, konfiguraatio):
     """Lyhyt arvailupeli, joka luo markovin ketjulla lauseen yhdestä tiedostosta
