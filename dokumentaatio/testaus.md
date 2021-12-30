@@ -7,18 +7,18 @@ Käsky luo raportin kansioon htmlcov, josta sen saa auki avaamalla index.html se
 
 ## Yksikkötestaus
 Jokaiselle kooditiedostolle on oma yksikkötestitiedosto, joka sisältää siihen liittyvän yksikkötestit. Kaikki toiminnallisuus on mahdollisuuksien mukaan pyritty testaamaan. </br>
-Tällä hetkellä ohjelman toimintaa yksikkötestataan lisäämällä trie-rakenteeseen yksinkertainen aineisto, ja hakemalla sanaa suuri määrä kertoja. Tämän jälkeen jakaumaa verrataan siihen, mikä sen pitäisi olla. Tässä huonona puolena on, että satunnaisuuden takia testillä on pieni mahdollisuus epäonnistua, vaikka toiminnallisuus olisi kunnossa.
+Ohjelman toimintaa yksikkötestataan lisäämällä trie-rakenteeseen yksinkertainen aineisto, ja hakemalla sanaa suuri määrä kertoja. Tämän jälkeen jakaumaa verrataan siihen, mikä sen pitäisi olla. Tässä huonona puolena on, että satunnaisuuden takia testillä on pieni mahdollisuus epäonnistua, vaikka toiminnallisuus olisi kunnossa.
 
 ## Tehokkuuden testaaminen
 Ohjelman suorituksessa yksi mahdollinen käsky on 'test'. Se ajaa normaalin toiminnan sijaan hakuja silmukassa ja raportoi kuinka kauan rakenteiden luominen ja hakujen tekeminen kesti sekä dictionary-, että trie-rakenteille. Hakujen määrän voi asettaa konfiguraatiossa vaihtamalla muuttujan 'hakuja' arvoa. 
 
 ### Datasetit
 Pieni: [tiralabra.json](https://github.com/MyVeli/tiralabra/blob/master/src/data/telegram/tiralabra.json) tiedoston sisältö. Tiedosto sisältää 23 851 riviä telegram-logeja tiralabra-kanavalta.
-<br><br>
+<br>
 Keskikokoinen: pienen datasetin sisältö + [tkoaly.json](https://github.com/MyVeli/tiralabra/blob/master/src/data/telegram/tkoaly.json). tkoaly.json sisältää 168 058 riviä telegram-logeja tkoaly-kanavalta.
-<br><br>
+<br>
 Suuri: keskikokoisen datasetin sisältö + [tira.json](https://github.com/MyVeli/tiralabra/blob/master/src/data/telegram/tira.json). tira.json sisältää 476 923 riviä telegram-logeja tira-kanavalta.
-<br><br>
+<br>
 
 ### Trien ja dictionaryn vertailu
 Ohjelmasta vertailun vuoksi löytyvä dictionary on rakennettu niin, että se tukee vain 2. asteen Markovin-ketjuja ja lataa vain telegram-tiedostossa olevan datan. Tämän vuoksi alla oleva vertailu tietorakenteiden välillä on tehty niin, että trien konfiguraatioksi on asetettu 'telegram' ja ketjun asteeksi 2.
@@ -40,5 +40,4 @@ Alla olevissa testeissä sarja-kenttä sisältää tiedon tekstin maksimipituude
 
 
 ## Testiraportit
-### Tämän hetkinen kattavuus:
 ![Testikattavuus](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/kuvat/testikattavuus.PNG)
