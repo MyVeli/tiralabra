@@ -10,9 +10,12 @@ Ohjelma koostuu seuraavista tiedostoista:
 * trie.py
 * ui_komennot.py
 * konfiguraatio.py
+
 Ohjelman suoritus alkaa main.py tiedostosta. Suorituksen alussa luodaan konfiguraatio-olio käyttäen sen default arvoja. Konfiguraatio on omassa luokassaan konfiguraatio.py tiedostossa. Main sisältää silmukan, jossa käyttäjältä pyydetään komentoja. Ohjelman suoritus loppuu, kun käyttäjä antaa tyhjän syötteen. Main kutsuu käyttäjän syötteen mukaan oikeaa ui_komennot.py tiedoston funktiota.
 
-Ohjelman suoritus alkaa mainista. Main kutsuu konfiguraation määrittely mukaan oikeaa tiedostonkäsittelymetodia. Tiedostonkäsittely avaa tiedoston ja parsii sen sisällön, tallentaen sen trie-rakenteeseen (joskin konfiguraation muutoksella myös puhdasta dictionary toteutusta voi käyttää.) Trien toteutus on trie.py tiedoston TrieNode luokassa, jota tiedostonkäsittely käyttää. TrieNode käyttää seuraavien sanojen tallentamiseen sanarakenne.py tiedoston SanaRakenne luokkaa, joka pitää kirjaa seuraavista sanoista ja niiden esiintymisestä, sekä pystyy arpomaan seuraavan sanan, jolla jatkaa ketjua. Tiedostonkäsittely palauttaa mainille Trien juuren. Main pyytää tämän jälkeen käyttäjältä silmukassa sanoja tai lauseita joita jatkaa. Ketjun luomiseen se käyttää markov.py tiedostosta löytyvää luo_lause metodia. luo_lause käyttää SanaRakenne luokan metodia seuraavien sanojen valitsemiseen. Se muodostaa näistä ketjun, joka on enintään konfiguraatiossa määritellyn mittainen ja palauttaa lopputuloksen mainille joka tulostaa sen komentoriville.
+`Lataa-komento` kutsuu ui_komennot.py tiedoston lataa-funktiota. Funktio tarkistaa ensin konfiguraatiosta mihin rakenteeseen ja mitkä tiedostot ladataan. Sen jälkeen se kutsuu tiedostonkasittely.py tiedostosta konfiguraation mukaista funktiota. Tiedostonkasittely käy kaikki data/telegram ja/tai data/text kansioissa olevat tiedostot läpi ja tallentaa ne trie- tai dictionary-rakenteeseen. Trietä käytettäessä, sanat tallennetaan käyttäen trie.py tiedoston TrieNode-luokkaa. Luokka tallentaa seuraavat sanat dictionaryyn ja SanaRakenne-luokkaan. SanaRakenne luokka ylläpitää myös tietoa siitä, kuinka monta kertaa jokin sana on esiintynyt. Näiden toiminnasta tarkemmin myöhemmissä kappaleissa. Kun kaikki data on ladattu, ui_kommennot palauttaa mainille datan.
+
+Dataa voi käyttää kolmella eri komennolla, jotka kaikki ohjautuvat ui_komennot.py tiedostossa eri funktioihin. Kaikki niistä käyttävät markov.py tiedoston lauseen generointia tekstin luomiseen. Funktiot generoivat tekstiä kunnes konfiguraatiossa oleva maksimipituus tulee täyteen tai seuraavaa jatkavaa sanaa ei löydy. Seuraava sana löytyy ensin etsimällä trie-rakenteesta oikea haara, jonka päässä oleva SanaRakenne arpoo seuraavan sanan jatkamaan tekstiä. Rakenteista ja algoritmeista enemmän alla.
 
 ### Trie-rakenne
 Trie on rakennettu niin, että sen maksimisyvyys on ketjun aste. Jokainen node sisältää kaksi merkittävää osaa:
@@ -162,11 +165,12 @@ Tämän perusteella koko tekstin generoinnin aikavaativuus on siis pahimmassa ta
 
 ### Aikavaativuuden testaus
 
-### Tilavaativuus
 
+### Tilavaativuus
+Sanat tallennetaan jokaiselle ketjun tasolle trie-rakenteeseen kaksi kertaa, kerran trie-rakenteessa liikkumista varten ja kerran SanaRakenne-luokkaan seuraavien sanojen arpomista varten. Sanat tallennetaan siis 2mn kertaa, jossa m=ketjun aste ja n=erilaisten sanojen määrä. Tilavaativuus on siis O(mn).
 
 ## Puutteet, parannusehdotukset
-* Merkkien käyttöä varsinkin telegram-tekstin osalta voisi parantaa paljon. Ongelmana merkkien suhteen on se, että telegrammin käyttämä .json tiedosto sisältää erityisesti lainauksien osalta paljon omia merkkejä, joita ei kannata lisätä rakenteeseen, ja niiden erottaminen olisi kohtalaisen työlästä.
+* Erikoismerkkien käyttöä varsinkin telegram-tekstin osalta voisi parantaa paljon. Ongelmana merkkien suhteen on se, että telegrammin käyttämä .json tiedosto sisältää erityisesti lainauksien osalta paljon omia merkkejä, joita ei kannata lisätä rakenteeseen, ja niiden erottaminen olisi kohtalaisen työlästä.
 * Ilman aloitussanaa ei voi generoida lauseita. Tämän lisääminen olisi kohtalaisen helppoa, mutta se ei ollut tärkeää siihen toiminnallisuuteen jonka halusin tehdä.
 * Graafinen käyttöliittymä olisi hauska, mutta ei myöskään tärkeä tämän kurssin asioiden osalta.
 
