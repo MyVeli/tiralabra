@@ -9,12 +9,26 @@ Yksikkötestit voi ajaa komennolla `invoke test` projektin juuressa. Testikattav
 Ohjelman voi avata joko komennolla `python src/python.py` tai `invoke start` projektin juuresta.
 
 ## Komennot ohjelman sisällä
+Ohjelmassa on 5 eri komentoa, joiden kuvaukset alla.
+
 ### Konfiguraatio
+Mahdollistaa konfiguraation muuttamisen. Muutettavia arvoja ovat tietorakenteeseen ja datan lataamiseen liittyvät arvo, muodostetun tekstin maksimipituus ja Markovin-ketjun aste. Konfiguraation muuttamisen jälkeen data ladataan uudestaan.
 
 ### Lataa
+Lataa datan konfiguraation mukaan. 
+* Konfiguraation arvolla "DICT" lataa kansion data/telegram sisältämät tiedostot dictionary rakenteeseen
+* Konfiguraation arvolla "TEXT" lataa data/text kansion sisältämät tiedostot trie-rakenteeseen
+* Konfiguraation arvolla "TELEGRAM" lataa data/text kansion sisältämät tiedostot trie-rakenteeseen
+* Konfiguraation arvolla "MOLEMMAT" lataa molempien kansioiden sisältämät tiedostot trie-rakenteeseen
+
+#### Datakansio
+Lataa käsky lataa tiedostoja datakansiosta. Data/telegram kansion pitää sisältää vain telegram-ohjelmasta exportattuja .json tiedostoja. Data/text kansion taas pitää sisältää vain .txt muotoista tekstiä sisältävää dataa. Uusia tiedostoja voi lisätä vaikka kesken ohjelman ajon ja datan voi ladata uudelle materiaalille lataa käskyllä.
 
 ### Test
+Lataa datan sekä dictionary, että trie-rakenteisiin, generoi konfiguraatiossa määritellyn (hakuja arvo) määrän tekstejä ja raportoi kuluneet ajat.
 
 ### Markov
+Generoi tekstiä ladatun datan ja konfiguraation perusteella. Vaatii aloitus sanan.
 
 ### Peli
+Generoi tekstiä satunnaisesta tiedostosta ja pyytää pelaajaa arvaamaan mistä tiedostosta sana on.

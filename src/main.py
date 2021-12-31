@@ -15,7 +15,7 @@ if __name__ == "__main__":
         elif komento == "help":
             ui_komennot.tulosta_komennot()
         elif komento == "konfiguraatio":
-            ui_komennot.muuta_konfiguraatiota(konf)
+            data = ui_komennot.muuta_konfiguraatiota(konf)
         elif komento == "lataa":
             data = ui_komennot.lataa(konf)
         elif komento == "markov":

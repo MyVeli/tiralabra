@@ -53,7 +53,6 @@ def luo_lause_trie(juuri, lause, konfiguraatio, tiedosto="Any"):
             if len(lause) <= konfiguraatio.aste:
                 seuraava = juuri.anna_sana(lause, tiedosto)
             else:
-                #print(" ".join(lause[(len(lause)-konfiguraatio.ASTE):]))
                 seuraava = juuri.anna_sana(lause[(len(lause)-konfiguraatio.aste):], tiedosto)
         except KeyError:
             break

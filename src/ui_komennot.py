@@ -23,6 +23,9 @@ def muuta_konfiguraatiota(konfiguraatio):
 
     Args:
         konfiguraatio (Konfiguraatio): Nykyinen konfiguraatio olio
+    
+    Returns:
+        data (TrieNode TAI Dictionary): Palauttaa uudelleen ladatun datan
     """
     while True:
         aste = input("Uusi ketjun aste (tyhjä pitää nykyisen):")
@@ -49,7 +52,7 @@ def muuta_konfiguraatiota(konfiguraatio):
             konfiguraatio.mode = mode_enum.TEXT
             break
         elif mode == "telegram":
-            konfiguraatio.mode = mode_enum.TRIE
+            konfiguraatio.mode = mode_enum.TELEGRAM
             break
         elif mode == "molemmat":
             konfiguraatio.mode = mode_enum.MOLEMMAT
@@ -61,7 +64,8 @@ def muuta_konfiguraatiota(konfiguraatio):
             break
         elif not pituus:
             break
-    lataa(konfiguraatio)
+    print("Ladataan data uudestaan")
+    return lataa(konfiguraatio)
 
 def peli(data, konfiguraatio):
     """Lyhyt arvailupeli, joka luo markovin ketjulla lauseen yhdestä tiedostosta
@@ -107,7 +111,7 @@ def markov(data, konfiguraatio):
         print(luo_lause_trie(data, lause, konfiguraatio))
     elif konfiguraatio.mode == mode_enum.DICT:
         print(luo_lause_dict(data, lause, konfiguraatio))
-    elif konfiguraatio.mode == mode_enum.TRIE:
+    elif konfiguraatio.mode == mode_enum.TELEGRAM:
         print(luo_lause_trie(data, lause, konfiguraatio))
     elif konfiguraatio.mode == mode_enum.MOLEMMAT:
         print(luo_lause_trie(data, lause, konfiguraatio))
@@ -127,7 +131,7 @@ def lataa(konfiguraatio):
         data = load_data_trie_telegram(konfiguraatio, data)
     elif konfiguraatio.mode == mode_enum.TEXT:
         data = load_data_trie_text(konfiguraatio)
-    elif konfiguraatio.mode == mode_enum.TRIE:
+    elif konfiguraatio.mode == mode_enum.TELEGRAM:
         data = load_data_trie_telegram(konfiguraatio)
     elif konfiguraatio.mode == mode_enum.DICT:
         data = load_data_dict()
