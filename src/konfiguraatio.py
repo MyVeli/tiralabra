@@ -15,6 +15,6 @@ class Konfiguraatio:
         #Testihakujen määrä jos test mode valittuna
         self.hakuja = 100000
         #Ketjun aste. Vaikuttaa vain Trie rakenteeseen
-        self.aste = 3
+        self.aste = 2
         #Muodostettavan lauseen maksimipituus
-        self.max_pituus = 10
+        self.max_pituus = 30

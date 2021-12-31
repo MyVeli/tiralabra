@@ -75,7 +75,9 @@ def peli(data, konfiguraatio):
         konfiguraatio (Konfiguraatio): Ohjelman konfiguraatio-olio
     """
     tiedostot = ""
-    if konfiguraatio.mode == mode_enum.TEXT:
+    if konfiguraatio.mode == mode_enum.TELEGRAM:
+        tiedostot = os.listdir(os.getcwd() + '/src/data/telegram')
+    elif konfiguraatio.mode == mode_enum.TEXT:
         tiedostot = os.listdir(os.getcwd() + '/src/data/text')
     elif konfiguraatio.mode == mode_enum.DICT:
         tiedostot = os.listdir(os.getcwd() + '/src/data/telegram')

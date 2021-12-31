@@ -13,7 +13,7 @@ class TestMarkov(unittest.TestCase):
         self.konf = konfiguraatio.Konfiguraatio()
         self.konf.aste = 2
         self.data_trie = TrieNode("")
-        self.rivi = "tämä on testi lause. myös, monen sanan lause testi".lower()\
+        self.rivi = "tämä on testi lause. myös, monen sanan testi".lower()\
             .translate(str.maketrans('', '', string.punctuation)).split()
         for i in range(len(self.rivi)-(self.konf.aste+1)):
             j = self.konf.aste
