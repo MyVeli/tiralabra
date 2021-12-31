@@ -15,4 +15,4 @@ def coverage(ctx):
 
 @task
 def lint(ctx):
-    ctx.run("pylint src")
+    ctx.run("pylint src --ignore=tests")

@@ -3,7 +3,7 @@
 Ohjelma käyttää riippuvuuksien hallintaan poetrya, jonka voi asentaa käskyllä `pip install poetry`. Tämän jälkeen riippuvuudet voi asentaa käskyllä `poetry install`. Tämän jälkeen invoken käyttäminen vaatii joko `poetry run invoke <komento>` käyttämistä tai `poetry shell` komennon käyttämistä. Käskyt tulee ajaa projektin juuressa.
 
 ## Testien ajaminen
-Yksikkötestit voi ajaa komennolla `invoke test` projektin juuressa. Testikattavuuden taas saa komennolla `invoke coverage`, joka myös luo sivun index.html kansioon htmlcov.
+Yksikkötestit voi ajaa komennolla `invoke test` projektin juuressa. Testikattavuuden taas saa komennolla `invoke coverage`, joka myös luo sivun index.html kansioon htmlcov. Lisäksi `invoke lint` ajaa pylint toiminnon src kansioon.
 
 ## Käynnistäminen
 Ohjelman voi avata joko komennolla `python src/python.py` tai `invoke start` projektin juuresta.
@@ -28,7 +28,7 @@ Lataa käsky lataa tiedostoja datakansiosta. Data/telegram kansion pitää sisä
 Lataa datan sekä dictionary, että trie-rakenteisiin, generoi konfiguraatiossa määritellyn (hakuja arvo) määrän tekstejä ja raportoi kuluneet ajat.
 
 ### Markov
-Generoi tekstiä ladatun datan ja konfiguraation perusteella. Vaatii aloitus sanan.
+Generoi tekstiä ladatun datan ja konfiguraation perusteella. Dictionary-toteutus vaatii aloitussanan
 
 ### Peli
-Generoi tekstiä satunnaisesta tiedostosta ja pyytää pelaajaa arvaamaan mistä tiedostosta sana on.
+Generoi tekstiä satunnaisesta tiedostosta ja pyytää pelaajaa arvaamaan mistä tiedostosta sana on. Dictionary-toteutus vaatii aloitussanan.
