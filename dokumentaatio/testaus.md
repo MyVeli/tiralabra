@@ -7,7 +7,7 @@ Käsky luo raportin kansioon htmlcov, josta sen saa auki avaamalla index.html se
 
 ## Yksikkötestaus
 Jokaiselle kooditiedostolle on oma yksikkötestitiedosto, joka sisältää siihen liittyvän yksikkötestit. Kaikki toiminnallisuus on mahdollisuuksien mukaan pyritty testaamaan. </br>
-Ohjelman toimintaa yksikkötestataan lisäämällä trie-rakenteeseen yksinkertainen aineisto, ja hakemalla sanaa suuri määrä kertoja. Tämän jälkeen jakaumaa verrataan siihen, mikä sen pitäisi olla. Tässä huonona puolena on, että satunnaisuuden takia testillä on pieni mahdollisuus epäonnistua, vaikka toiminnallisuus olisi kunnossa.
+Ohjelman toimintaa yksikkötestataan myös niin, että yhden luokan testit kattavat usein myös muiden luokkien tai tiedostojen käyttöä niiden välisten riippuvuuksien kautta. 
 
 ## Tehokkuuden testaaminen
 Ohjelman suorituksessa yksi mahdollinen käsky on 'test'. Se ajaa normaalin toiminnan sijaan hakuja silmukassa ja raportoi kuinka kauan rakenteiden luominen ja hakujen tekeminen kesti sekä dictionary-, että trie-rakenteille. Hakujen määrän voi asettaa konfiguraatiossa vaihtamalla muuttujan 'hakuja' arvoa. 
