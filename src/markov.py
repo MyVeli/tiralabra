@@ -6,11 +6,12 @@ def luo_lause_dict(data, lause, konfiguraatio):
 
     Args:
         data (dictionary): sisältää sanaparit ja SanaRakenne luokat
-        lause (string): lause, josta aloitetaan ketjun muodostaminen
+        lause (list): lause, josta aloitetaan ketjun muodostaminen
     """
     i = 0
-    if not lause:
-        return ""
+    # Dictionary toteutus tarvitsee aloitussanan tai lauseen
+    if not lause or len(lause) == 0:
+        return " "
     sana2 = lause[-1].lower()
     sana1 = None
     if len(lause) > 1:
@@ -24,14 +25,16 @@ def luo_lause_dict(data, lause, konfiguraatio):
         except KeyError:
             break
         except Exception as ex:
-            print("virhe: " + ex)
-            break
+            print(ex)
+            return " "
         if not seuraava:
             break
         sana1 = sana2
         sana2 = seuraava
         lause.append(seuraava)
         i += 1
+    if len(lause) == 1:
+        return lause[0]
     return' '.join(lause)
 
 def luo_lause_trie(juuri, lause, konfiguraatio, tiedosto="Any"):
@@ -39,15 +42,13 @@ def luo_lause_trie(juuri, lause, konfiguraatio, tiedosto="Any"):
 
     Args:
         juuri (TrieNode): Sisältää käytettävän datan
-        lause (string): Sisältää lauseen, jonka pohjalta lause kasataan
+        lause (list): Sisältää lauseen, jonka pohjalta lause kasataan
 
     Returns:
         string: Markovin ketjulla luotu lause
     """
-    i = 0
-    if not lause:
-        return ""
 
+    i = 0
     while i < konfiguraatio.max_pituus:
         try:
             if len(lause) <= konfiguraatio.aste:
@@ -58,7 +59,9 @@ def luo_lause_trie(juuri, lause, konfiguraatio, tiedosto="Any"):
             break
         except Exception as ex:
             print(ex)
-            break
+            return " "
         lause.append(seuraava)
         i += 1
+    if len(lause) == 1:
+        return lause[0]
     return ' '.join(lause)

@@ -4,8 +4,11 @@ from trie import TrieNode
 import konfiguraatio
 
 class TestTrie(unittest.TestCase):
+    """TrieNoden perustestaus. Rakennetta testataan enemmän markov_test yhteydessä.
+    """
     def setUp(self):
         self.konf = konfiguraatio.Konfiguraatio()
+        self.konf.aste = 2
         self.juuri = TrieNode("")
         rivi = "tämä on testi lause".lower()\
             .translate(str.maketrans('', '', string.punctuation)).split()
@@ -19,7 +22,11 @@ class TestTrie(unittest.TestCase):
                 j -= 1
 
     def test_lisaa(self):
-        self.assertEqual(True,"tämä" in self.juuri.seuraavat_sanat)
+        """Testataan, tallentuvatko lauseet rakenteeseen
+        """
+        self.assertTrue("tämä" in self.juuri.seuraavat_sanat)
 
     def test_anna_sana(self):
-        self.assertEqual("testi",self.juuri.anna_sana("tämä on".split()))
+        """testaa, antaako rakenne oikean sanan seuraavaksi
+        """
+        self.assertEqual("testi", self.juuri.anna_sana("tämä on".split()))
