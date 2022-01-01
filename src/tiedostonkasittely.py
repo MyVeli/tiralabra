@@ -49,9 +49,17 @@ def load_data_dict():
 
     polku = os.getcwd() + '/src/data/telegram'
     for tiedosto in os.listdir(polku):
-        file = __avaa_tiedosto(polku+'/'+tiedosto)
-        for rivi in json.loads(file.read())['messages']:
-            parse_sentence(str(rivi['text']))
+        try:
+            file = __avaa_tiedosto(polku+'/'+tiedosto)
+        except:
+            print("Ongelmia tiedoston "+str(tiedosto)+" avaamisessa")
+            continue
+        try:
+            for rivi in json.loads(file.read())['messages']:
+                parse_sentence(str(rivi['text']))
+        except:
+            print(tiedosto+" ei ole oikean muotoinen."
+                +"Tarkista kansion data/telegram sisältö ja lataa uudestaan.")
     return data
 
 def load_data_trie_telegram(konfiguraatio, juuri=None):
@@ -64,10 +72,25 @@ def load_data_trie_telegram(konfiguraatio, juuri=None):
         juuri = TrieNode(sanat=None)
     polku = os.getcwd() + '/src/data/telegram'
     for tiedosto in os.listdir(polku):
-        file = __avaa_tiedosto(polku+'/'+tiedosto)
+        try:
+            file = __avaa_tiedosto(polku+'/'+tiedosto)
+        except:
+            print("Ongelmia tiedoston "+str(tiedosto)+" avaamisessa")
+            continue
+        # Vain .json tiedostot kelpaavat telegrammista
+        if tiedosto.split(".")[1] != "json":
+            print("Ohitetaan "+tiedosto+", koska se ei ole .json muotoinen")
+            continue
         for rivi in json.loads(file.read())['messages']:
-            rivi = str(rivi['text']).lower()\
+            try:
+                # Vain tekstikentän sisältö halutaan mukaan. Jos sitä ei löydy,
+                # tiedosto on väärän mallinen.
+                rivi = str(rivi['text']).lower()\
                 .translate(str.maketrans('', '', string.punctuation)).split()
+            except:
+                print(tiedosto+" ei ole oikean muotoinen."
+                    +"Tarkista kansion data/telegram sisältö ja lataa uudestaan.")
+                return None
             for i in range(len(rivi)-(konfiguraatio.aste+1)):
                 j = konfiguraatio.aste
                 while j >= 0:
@@ -88,14 +111,22 @@ def load_data_trie_text(konfiguraatio, juuri=None):
         juuri = TrieNode(sanat=None)
     polku = os.getcwd() + '/src/data/text'
     for tiedosto in os.listdir(polku):
-        file = __avaa_tiedosto(polku+'/'+tiedosto)
-        rivi = file.read().lower().split()
-        for i in range(len(rivi)-(konfiguraatio.aste+1)):
+        try:
+            file = __avaa_tiedosto(polku+'/'+tiedosto)
+        except:
+            print("Ongelmia tiedoston "+str(tiedosto)+" avaamisessa")
+            continue
+        # Luetaan vain .txt tiedostoja
+        if tiedosto.split(".")[1] != "txt":
+            print("Ohitetaan "+tiedosto+", koska se ei ole .txt muotoinen")
+            continue
+        teksti = file.read().lower().split()
+        for i in range(len(teksti)-(konfiguraatio.aste+1)):
             j = konfiguraatio.aste
             while j >= 0:
                 temp = []
-                temp.append(rivi[int(i):int(i)+j])
-                temp.append(rivi[int(i)+j])
+                temp.append(teksti[int(i):int(i)+j])
+                temp.append(teksti[int(i)+j])
                 juuri.lisaa(temp, alkupera=tiedosto)
                 j -= 1
     return juuri
@@ -111,7 +142,6 @@ def __avaa_tiedosto(polku):
     """
     try:
         file = open(polku, "r", encoding="utf8")
-    #ToDo: Paremmat poikkeukset
     except Exception:
         raise Exception("Ongelmia tiedoston avaamisessa.")
     return file

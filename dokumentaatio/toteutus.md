@@ -210,6 +210,7 @@ Sanat tallennetaan jokaiselle ketjun tasolle trie-rakenteeseen kaksi kertaa, ker
 * Erikoismerkkien käyttöä varsinkin telegram-tekstin osalta voisi parantaa paljon. Ongelmana merkkien suhteen on se, että telegrammin käyttämä .json tiedosto sisältää erityisesti lainauksien osalta paljon omia merkkejä, joita ei kannata lisätä rakenteeseen, ja niiden erottaminen olisi kohtalaisen työlästä.
 * Dictionary-toteutuksella ilman aloitussanaa ei voi generoida lauseita. Tämän lisääminen olisi kohtalaisen helppoa, mutta se ei ollut tärkeää siihen toiminnallisuuteen tai vertailuun jonka halusin tehdä.
 * Graafinen käyttöliittymä olisi hauska, mutta ei myöskään tärkeä tämän kurssin asioiden osalta.
+* Poikkeusten hallintaa voisi myös parantaa esim. tekemällä erillisen tiedoston ohjelman poikkeuksille ja käyttämällä niitä. Nyt ohjelmassa on paljon laajan poikkeustyypin käyttöä.
 
 
 ## Lähteet

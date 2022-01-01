@@ -11,7 +11,7 @@ class TestMarkov(unittest.TestCase):
     def setUp(self):
         """Valmistellaan data setupissa testejä varten"""
         self.konf = konfiguraatio.Konfiguraatio()
-        self.konf.aste = 2
+        self.konf.aste = 1
         self.data_trie = TrieNode("")
         self.rivi = "tämä on testi lause. myös, monen sanan testi".lower()\
             .translate(str.maketrans('', '', string.punctuation)).split()
@@ -84,6 +84,18 @@ class TestMarkov(unittest.TestCase):
         sanat = luo_lause_trie(self.data_trie, "".split(), self.konf).split()
         self.assertTrue(sanat[0] in self.rivi)
         self.assertTrue(sanat[1] in self.rivi)
+
+    def test_yhdistelmat_oikeita(self):
+        self.konf.max_pituus = 2
+        self.konf.aste = 1
+        for _ in range(10):
+            sanat = luo_lause_trie(self.data_trie, "".split(), self.konf).split()   
+            i = 0
+            while i < len(self.rivi)-1:
+                if self.rivi[i] == sanat[0]:
+                    self.assertEqual(self.rivi[i+1],sanat[1])
+                    break
+                i += 1
 
     def test_vaara_rakenne_trie(self):
         """testaa trien toiminnan, kun parametrina annetaan vääränlainen data-rakenne

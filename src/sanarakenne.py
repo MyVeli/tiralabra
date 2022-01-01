@@ -27,8 +27,8 @@ class SanaRakenne:
     def anna_sana(self):
         """Palauttaa satunnaisen seuraavan sanan ottaen esiintymismäärät huomioon"""
         luku = randint(0, self.koko)
+        # Tyhjää rakennetta on mahdoton luoda, joten sana löytyy aina.
         for sana, maara in self.sanat.items():
             luku -= maara
             if luku <= 0:
                 return sana
-        return ""

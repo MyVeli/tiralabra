@@ -1,7 +1,7 @@
 """Toteuttaa Trie rakenteen käyttämällä SanaRakenne-luokkaa yhteyksiä varten
 """
-from sanarakenne import SanaRakenne
 from random import randint
+from sanarakenne import SanaRakenne
 
 class TrieNode:
     """Yksittäinen node rakenteessa
@@ -19,11 +19,6 @@ class TrieNode:
         Args:
             sanat (stringejä sisältävä taulukko): sisältää peräkkäisiä sanoja taulukossa
         """
-        if not sanat:
-            return
-        """if len(sanat[0]) == 0 and len(sanat) == 1:
-            #self.lisaa_yhteys(".")
-            return"""
         if len(sanat[0]) == 0:
             self.__lisaa_yhteys(sanat[1], alkupera)
             return

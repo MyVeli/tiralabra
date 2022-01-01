@@ -11,10 +11,10 @@ class Konfiguraatio:
     """
     def __init__(self):
         #Käytetään valitsemaan mitä tietorakennetta käytetään ja mitkä tiedostot ladataan
-        self.mode = mode_enum.TELEGRAM
+        self.mode = mode_enum.MOLEMMAT
         #Testihakujen määrä jos test mode valittuna
         self.hakuja = 100000
         #Ketjun aste. Vaikuttaa vain Trie rakenteeseen
-        self.aste = 2
+        self.aste = 1
         #Muodostettavan lauseen maksimipituus
-        self.max_pituus = 30
+        self.max_pituus = 20

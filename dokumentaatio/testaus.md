@@ -3,11 +3,12 @@
 ## Testauksen suorittaminen
 Yksikkötestit voi ajaa käskyllä `invoke test` </br>
 Kattavuusraportin saa käskyllä `invoke coverage`. 
-Käsky luo raportin kansioon htmlcov, josta sen saa auki avaamalla index.html selaimessa.
+Käsky luo raportin kansioon htmlcov, josta sen saa auki avaamalla index.html selaimessa.<br>
+Käskyllä `invoke lint` voi suorittaa koodinlaatuanalyysin.
 
 ## Yksikkötestaus
 Jokaiselle kooditiedostolle on oma yksikkötestitiedosto, joka sisältää siihen liittyvän yksikkötestit. Kaikki toiminnallisuus on mahdollisuuksien mukaan pyritty testaamaan. </br>
-Ohjelman toimintaa yksikkötestataan myös niin, että yhden luokan testit kattavat usein myös muiden luokkien tai tiedostojen käyttöä niiden välisten riippuvuuksien kautta. Tekstin generointia on testattu niin, että on yksikkötesteissä varmistetaan, että sanat löytyvät oikeasta kohdasta Trietä, ja että niitä käytetään tekstin muodostuksessa. Lisäksi on testattu, että luotujen tekstien sanayhdistelmät löytyvät alkuperäistekstistä.
+Ohjelman toimintaa yksikkötestataan myös niin, että yhden luokan testit kattavat usein myös muiden luokkien tai tiedostojen käyttöä niiden välisten riippuvuuksien kautta. Tekstin generointia on testattu niin, että on yksikkötesteissä varmistetaan, että sanat löytyvät oikeasta kohdasta Trietä, ja että niitä käytetään tekstin muodostuksessa. Lisäksi on testattu, että luotujen tekstien sanayhdistelmät löytyvät alkuperäistekstistä. Dictionary-toteutuksen testaus on kevyempää, koska se ei ole ohjelman päätarkoitus, vaan lähinnä mukana vertailusyistä.
 
 ## Manuaalinen testaus
 Kaikkia ohjelman toimintoja on testattu erilaisilla ja kokoisilla datalähteillä ja syötteillä myös manuaalisesti. Lisäksi Tehokkuus on testattu käyttämällä ohjelmaan sisäänrakennettua testitoiminnallisuutta.
@@ -63,3 +64,4 @@ Enemmän analyysiä tuloksista löytyy toteutusdokumentista.
 
 ## Testikattavuus
 ![Testikattavuus](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/kuvat/testikattavuus.PNG)
+Kokonaiskattavuutta tiputtaa hieman tiedostonlukemisen testaaminen, koska poikkeuksille ei ole siellä testausta, vaan ne on testattu manuaalisesti.

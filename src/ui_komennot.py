@@ -23,7 +23,7 @@ def muuta_konfiguraatiota(konfiguraatio):
 
     Args:
         konfiguraatio (Konfiguraatio): Nykyinen konfiguraatio olio
-    
+
     Returns:
         data (TrieNode TAI Dictionary): Palauttaa uudelleen ladatun datan
     """
@@ -79,8 +79,6 @@ def peli(data, konfiguraatio):
         tiedostot = os.listdir(os.getcwd() + '/src/data/telegram')
     elif konfiguraatio.mode == mode_enum.TEXT:
         tiedostot = os.listdir(os.getcwd() + '/src/data/text')
-    elif konfiguraatio.mode == mode_enum.DICT:
-        tiedostot = os.listdir(os.getcwd() + '/src/data/telegram')
     elif konfiguraatio.mode == mode_enum.MOLEMMAT:
         tiedostot = os.listdir(os.getcwd() + '/src/data/telegram')+os.listdir(os.getcwd() \
             + '/src/data/text')
@@ -89,7 +87,7 @@ def peli(data, konfiguraatio):
         return
 
     tiedosto_nro = randint(0, len(tiedostot)-1)
-    lause = input("Anna jatkettava lause tai sana: ").split()
+    lause = input("Anna jatkettava lause tai sana (tyhjä generoi satunnaise): ").split()
     print("----------------------------")
     print(luo_lause_trie(data, lause, konfiguraatio, tiedostot[tiedosto_nro]))
     print("----------------------------")
@@ -108,7 +106,7 @@ def markov(data, konfiguraatio):
         data (TrieNode TAI Dictionary): tekstin generointiin käytettävä data
         konfiguraatio (Konfiguraatio): konfiguraatio-olio
     """
-    lause = input("Anna jatkettava lause tai sana: ").split()
+    lause = input("Anna jatkettava lause tai sana (triellä tyhjä generoi satunnaisen): ").split()
     if konfiguraatio.mode == mode_enum.TEXT:
         print(luo_lause_trie(data, lause, konfiguraatio))
     elif konfiguraatio.mode == mode_enum.DICT:

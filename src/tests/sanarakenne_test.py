@@ -18,7 +18,13 @@ class TestSanaRakenne(unittest.TestCase):
         self.rakenne.lisaa_sana("sana")
         self.assertEqual(self.rakenne.sanat["sana"],2)
 
+    def test_tyhja_rakenne(self):
+        tyhja_rakenne = SanaRakenne("")
+        self.assertEqual(tyhja_rakenne.anna_sana(),"")
+
     def test_mahdollisuus(self):
+        """tarkistaa, että mahdollisuus saada toinen kahdesta sanasta on suunnilleen oikea
+        """
         for i in range(9):
             self.rakenne.lisaa_sana("sana")
         for i in range(10):

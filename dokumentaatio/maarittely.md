@@ -16,6 +16,8 @@ Ohjelma pystyy lukemaan teksitiedostoja, jotka sisältävät chat-logeja. Teksti
 
 Ohjelmaa on myös helppoa muokata niin, että chat-logien sijaan sille annetaan muuta tekstiä. Tässä tapauksessa muokkausta vaatisi lähinnä tiedostojen käsittely ja parsiminen.
 
+Laajuuden saamiseksi lisäsin ohjelmaan peli-toiminnallisuuden, jossa ohjelma arpoo jostain luetusta tiedostosta materiaalia ja pyytää käyttäjää arvaamaan tiedoston.
+
 ## Algoritmit ja tietorakenteet
 ### Algoritmit
 Ohjelma käyttää Markovin-ketjua tekstin muodostamiseen. Markovin ketjua testataan usealla asteella, mutta lopulliseen ohjelmaan jää pienin aste jolla tekstistä tulee mielenkiintoista, jotta pienemmälläkin aineistolla saa generoitua suuren määrän erilaista tekstiä.
@@ -26,6 +28,8 @@ Markovin ketju on valittu toteutukseen, koska siihen tallennettujen tilasiirtymi
 Ohjelma käyttää itse toteutettua Trie-rakennetta ketjun tallentamiseen. Tämän lisäksi vertaan Trie-toteutusta pythonin dictionary-toteutukseen. Teen ensimmäisen toteutuksen myös dictionarylla, jonka jälkeen korvaan sen omalla Trie-toteutuksella. Dictionaryyn tallennan sanapareja, sekä niitä seuraavien sanojen esiintymiskertoja. 
 </br>
 Ohjelma saa käyttäjältä syötteeksi tekstitiedostoja, joiden perusteella tietorakenne muodostetaan. Trie on hyvä rakenne toteutukselle, koska siitä hakeminen on hyvin tehokasta, ja koska siihen pystyy tallentamaan sanojen välisiä suhteita. Dictionarysta hakeminen taas on tehokasta ja siihen pystyy myös hyvin tallentamaan sanapareja, sekä niiden suhteita muihin sanoihin.
+<br>
+Ohjelma pystyy myös tallentamaan datan niin, että siitä voi generoida tekstiä pelkästään yhdestä tiedostosta, tai kaikkien tiedostojen perusteella käyttämällä vain yhtä trie-rakennetta.
 
 ### Aikavaativuus
 Markov-ketjun aikavaativuus riippuu käytetyistä tietorakenteista. Lauseen muodostaminen molemmista rakenteista on aikavaativuudelta O(m), jossa m on etsittävän ketjun pituus, mikäli dictionaryssa ei tule päällekäisiä hasheja sanapareille.
