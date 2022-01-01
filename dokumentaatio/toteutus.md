@@ -27,7 +27,7 @@ Näistä ensimmäistä käytetään Trie-rakenteessa liikkumiseen ja toista seur
 Luodun rakenteen heikkoutena on datan toisteellisuus ja sen kautta rakenteen käyttämä muisti. Kaikki seuraavat sanat löytyvät sekä ensimmäisestä, että toisesta osasta. Tämä on kuitenkin tietoinen kompromissi nopeuden ja toiminnallisuuden suhteen. Nyt trie-rakenteesta pystyy luomaan nopeasti tekstiä sekä kaikista datalähteistä, että vain yhdestä. Halusin ohjelmaan molemmat vaihtoehdot sen sisältämää peliä ja normaalia tekstin generointia varten.
 
 ### Tekstin generointi trie-rakenteen avulla
-Teksti generoidaan Markovin-ketjujen avulla. 
+Teksti generoidaan Markovin-ketjujen avulla. Uusia sanoja voi generoida minkä tahansa mittaisen lauseen pohjalta. Lauseesta poimitaan ketjun asteen verran viimeisiä sanoja, joita käytetään etenemään trie-rakenteessa. Mikäli sanoja on vähemmän kuin ketjun aste (tai ei ollenkaan), arvotaan sana siitä kohdasta trietä, jossa sanat loppuivat kesken. Seuraava sana arvotaa käyttämällä SanaRakenne luokan metodia. Tämän jälkeen tarkistetaan, onko teksti halutun mittainen ja toistetaan prosessi, mikäli se on vielä liian lyhyt. Teksti voi jäädä haluttua lyhyemmäksi, mikäli uutta sanaa ei enää löydy generoidun tekstin perusteella. Toteutuksesta löytyy pseudokoodi aika-analyysin kohdalta. 
 
 ## Saavutetut aika- ja tilavaativuudet
 
