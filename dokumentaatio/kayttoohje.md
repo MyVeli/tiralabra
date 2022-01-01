@@ -31,4 +31,4 @@ Lataa datan sekä dictionary, että trie-rakenteisiin, generoi konfiguraatiossa 
 Generoi tekstiä ladatun datan ja konfiguraation perusteella. Dictionary-toteutus vaatii aloitussanan
 
 ### Peli
-Generoi tekstiä satunnaisesta tiedostosta ja pyytää pelaajaa arvaamaan mistä tiedostosta sana on. Dictionary-toteutus vaatii aloitussanan.
+Generoi tekstiä satunnaisesta tiedostosta ja pyytää pelaajaa arvaamaan mistä tiedostosta sana on. Toimii vain trie-toteutuksella.
