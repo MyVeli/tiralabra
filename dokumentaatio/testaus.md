@@ -7,10 +7,13 @@ Käsky luo raportin kansioon htmlcov, josta sen saa auki avaamalla index.html se
 
 ## Yksikkötestaus
 Jokaiselle kooditiedostolle on oma yksikkötestitiedosto, joka sisältää siihen liittyvän yksikkötestit. Kaikki toiminnallisuus on mahdollisuuksien mukaan pyritty testaamaan. </br>
-Ohjelman toimintaa yksikkötestataan myös niin, että yhden luokan testit kattavat usein myös muiden luokkien tai tiedostojen käyttöä niiden välisten riippuvuuksien kautta. 
+Ohjelman toimintaa yksikkötestataan myös niin, että yhden luokan testit kattavat usein myös muiden luokkien tai tiedostojen käyttöä niiden välisten riippuvuuksien kautta. Tekstin generointia on testattu niin, että on yksikkötesteissä varmistetaan, että sanat löytyvät oikeasta kohdasta Trietä, ja että niitä käytetään tekstin muodostuksessa. Lisäksi on testattu, että luotujen tekstien sanayhdistelmät löytyvät alkuperäistekstistä.
+
+## Manuaalinen testaus
+Kaikkia ohjelman toimintoja on testattu erilaisilla ja kokoisilla datalähteillä ja syötteillä myös manuaalisesti. Lisäksi Tehokkuus on testattu käyttämällä ohjelmaan sisäänrakennettua testitoiminnallisuutta.
 
 ## Tehokkuuden testaaminen
-Ohjelman suorituksessa yksi mahdollinen käsky on 'test'. Se ajaa normaalin toiminnan sijaan hakuja silmukassa ja raportoi kuinka kauan rakenteiden luominen ja hakujen tekeminen kesti sekä dictionary-, että trie-rakenteille. Hakujen määrän voi asettaa konfiguraatiossa vaihtamalla muuttujan 'hakuja' arvoa. 
+Ohjelman suorituksessa yksi mahdollinen käsky on 'test'. Se ajaa normaalin toiminnan sijaan hakuja silmukassa ja raportoi kuinka kauan rakenteiden luominen ja hakujen tekeminen kesti sekä dictionary-, että trie-rakenteille. Hakujen määrän voi asettaa konfiguraatiossa vaihtamalla muuttujan 'hakuja' arvoa. Tehokkuuden osalta tein vertailun trien ja dictionaryn välillä ja testasin myös ketjun asteen vaikutusta tehokkuuteen. Nämä kaksi testisarjaa on tehty eri aikoihin eri tietokoneilla, joten ne eivät ole keskenään täysin vertailukelpoisia.
 
 ### Datasetit
 Pieni: [tiralabra.json](https://github.com/MyVeli/tiralabra/blob/master/src/data/telegram/tiralabra.json) tiedoston sisältö. Tiedosto sisältää 23 851 riviä telegram-logeja tiralabra-kanavalta.
@@ -28,7 +31,7 @@ Alla olevissa testeissä sarja-kenttä sisältää tiedon tekstin maksimipituude
 ![Suorituskykyvertailu](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/kuvat/suorituskyky_trie_ja_dictionary.png)
 <table>
 <tr>
-<th> sarja (tekstin pituus / data)</th>	<th> latausaika (s) - Trie </th> <th> latausaika (s) - Dictionary </th> <th>hakuaika (s/10k hakua) - Trie </th> <th>hakuaika (s/10k hakua) - Dictionary</th>
+<th> sarja (tekstin pituus / data)</th>	<th> latausaika (s) - Trie </th> <th> latausaika (s) - Dictionary </th> <th>hakuaika (s/100k hakua) - Trie </th> <th>hakuaika (s/100k hakua) - Dictionary</th>
 </tr>
 <tr> <td>10 / pieni</td>	<td>0.21</td>	<td>0.11</td>	<td>3.38</td>	<td>2.12</td> </tr>
 <tr> <td>50 / pieni</td>	<td>0.21</td>	<td>0.11</td>	<td>6.27</td>	<td>3.07</td> </tr>
@@ -38,6 +41,25 @@ Alla olevissa testeissä sarja-kenttä sisältää tiedon tekstin maksimipituude
 <tr> <td>50 / suuri</td>	<td>7.38</td>	<td>4.29</td>	<td>14.39</td>	<td>13.39</td> </tr>
 </table>
 
+### Ketjun asteen vaikutuksen testaus
+Testauksessa on käytetty ohjelman test-komentoa aikojen mittaamiseen. Tekstin maksimipituudeksi on valittu 5, jotta ketjun asteen muuttuminen vaikuttaisi mahdollisimman vähän generoidun tekstin pituuteen ja sitä kautta suoritusaikaan. Taulukon tulosarvo on kolmen testikerran mediaani.
+![Suorituskykyvertailu - latausajat](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/kuvat/suorituskyky_aste_latausajat.png)
+![Suorituskykyvertailu - hakuajat](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/kuvat/suorituskyky_aste_hakuajat.png)
+<table>
+<tr>
+<th> sarja (tekstin pituus / data)</th>	<th> latausaika (s) </th> <th>hakuaika (s/100k hakua)</th></tr>
+<tr> <td>1 / pieni</td>	<td>0.087</td>	<td>1.88</td>	</tr>
+<tr> <td>3 / pieni</td>	<td>0.26</td>	<td>1.62</td>	</tr>
+<tr> <td>5 / pieni</td>	<td>0.43</td>	<td>1.53</td>	</tr>
+<tr> <td>1 / keskikokoinen</td>	<td>0.85</td>	<td>7.80</td>	</tr>
+<tr> <td>3 / keskikokoinen</td>	<td>2.73</td>	<td>4.36</td>	</tr>
+<tr> <td>5 / keskikokoinen</td>	<td>4.49</td>	<td>3.27</td>	</tr>
+<tr> <td>1 / suuri</td>	<td>3.24</td>	<td>10.20</td>	</tr>
+<tr> <td>3 / suuri</td>	<td>8.79</td>	<td>5.57</td>	</tr>
+<tr> <td>5 / suuri</td>	<td>14.74</td>	<td>4.32</td>	</tr>
+</table>
 
-## Testiraportit
+Enemmän analyysiä tuloksista löytyy toteutusdokumentista.
+
+## Testikattavuus
 ![Testikattavuus](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/kuvat/testikattavuus.PNG)

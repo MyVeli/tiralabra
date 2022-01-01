@@ -164,7 +164,44 @@ Tässä muut operaatiot ovat vakioaikaisia, mutta uuden sanan arpominen on sekä
 Tämän perusteella koko tekstin generoinnin aikavaativuus on siis pahimmassa tapauksessa O(mkln^2) ja keskimääräisessä O(nmkl) kuitenkin niin, että n on sanamäärä, joka keskimäärin löytyy viimeisen TrieNoden päästä.
 
 ### Aikavaativuuden testaus
+Alla testituloksia eri ketjun asteilla ja dataseteillä. Testien suorittamisesta ja dataseteistä löytyy lisätietoa testausdokumentista.
 
+#### Datasetin koon vaikutus ja dictionary vertailu
+![Suorituskykyvertailu](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/kuvat/suorituskyky_trie_ja_dictionary.png)
+<table>
+<tr>
+<th> sarja (tekstin pituus / data)</th>	<th> latausaika (s) - Trie </th> <th> latausaika (s) - Dictionary </th> <th>hakuaika (s/100k hakua) - Trie </th> <th>hakuaika (s/100k hakua) - Dictionary</th>
+</tr>
+<tr> <td>10 / pieni</td>	<td>0.21</td>	<td>0.11</td>	<td>3.38</td>	<td>2.12</td> </tr>
+<tr> <td>50 / pieni</td>	<td>0.21</td>	<td>0.11</td>	<td>6.27</td>	<td>3.07</td> </tr>
+<tr> <td>10 / keskikokoinen</td>	<td>2.21</td>	<td>1.11</td>	<td>6.62</td>	<td>7.01</td> </tr>
+<tr> <td>50 / keskikokoinen</td>	<td>2.21</td>	<td>1.11</td>	<td>9.78</td>	<td>7.93</td> </tr>
+<tr> <td>10 / suuri</td>	<td>7.38</td>	<td>4.29</td>	<td>9.06</td>	<td>11.17</td> </tr>
+<tr> <td>50 / suuri</td>	<td>7.38</td>	<td>4.29</td>	<td>14.39</td>	<td>13.39</td> </tr>
+</table>
+Datamäärän kasvun huomioon ottaen testien perusteella vaikuttaa, että latausajan kasvu on lineaarista datamäärän kasvun suhteen, kuten analyysin perusteella oli odotettavissa. Hakuaika taas ei vaikuta kasvavan täysin lineaarisesti, vaan datamäärän kasvaessa se ensin kasvaa voimakkaammin, minkä jälkeen kasvu hidastuu. Tämä on sikäli odotettavissa, että merkityksellistä kasvun kannalta on uusien sanayhdistelmien määrän lisääntyminen, ja datamäärän kasvaessa samojen sanayhdistelmien toiston määrä todennäköisesti lisääntyy.
+
+Dictionaryyn verrattuna trie-rakenne vaikuttaisi pärjäävän erityisesti lyhyemmällä tekstillä oikein hyvin, varsinkin kun ottaa huomioon, kuinka paljon laajempi toiminnallisuus trie-toteutuksella on. Mikäli trietä ei olisi suunniteltu niin, että samasta rakenteesta saa generoitua tekstiä yhden tai useamman tiedoston pohjalta, se luultavasti pärjäisi dictionary-toteutukselle hyvin.
+
+#### Ketjun asteen vaikutus
+
+![Suorituskykyvertailu - latausajat](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/kuvat/suorituskyky_aste_latausajat.png)
+![Suorituskykyvertailu - hakuajat](https://github.com/MyVeli/tiralabra/blob/master/dokumentaatio/kuvat/suorituskyky_aste_hakuajat.png)
+
+<table>
+<tr>
+<th> sarja (tekstin pituus / data)</th>	<th> latausaika (s) </th> <th>hakuaika (s/100k hakua)</th></tr>
+<tr> <td>1 / pieni</td>	<td>0.087</td>	<td>1.88</td>	</tr>
+<tr> <td>3 / pieni</td>	<td>0.26</td>	<td>1.62</td>	</tr>
+<tr> <td>5 / pieni</td>	<td>0.43</td>	<td>1.53</td>	</tr>
+<tr> <td>1 / keskikokoinen</td>	<td>0.85</td>	<td>7.80</td>	</tr>
+<tr> <td>3 / keskikokoinen</td>	<td>2.73</td>	<td>4.36</td>	</tr>
+<tr> <td>5 / keskikokoinen</td>	<td>4.49</td>	<td>3.27</td>	</tr>
+<tr> <td>1 / suuri</td>	<td>3.24</td>	<td>10.20</td>	</tr>
+<tr> <td>3 / suuri</td>	<td>8.79</td>	<td>5.57</td>	</tr>
+<tr> <td>5 / suuri</td>	<td>14.74</td>	<td>4.32</td>	</tr>
+</table>
+Tulosten perusteella vaikuttaisi siltä, että latausaika kasvaa lineaarisesti ketjun asteen mukaan, kuten oli analyysin perusteella odotettavissa. Sen sijaan on kiinnostavaa, että hakuaika pienenee voimakkaasti mitä suurempi ketjun aste on, vaikka analyysin mukaan olisi toisin. Uskoisin, että tämä johtuu siitä, että ketjun päässä on huomattavasti vähemmän sanoja, joista seuraava sana arvotaan kun ketjun aste on suuri. Tällöin seuraavan sanan arvontaan menee niin paljon vähemmän aikaa, että sillä on suurempi merkitys kuin sillä, että trie-rakenteessa liikkumiseen menee enemmän aikaa.
 
 ### Tilavaativuus
 Sanat tallennetaan jokaiselle ketjun tasolle trie-rakenteeseen kaksi kertaa, kerran trie-rakenteessa liikkumista varten ja kerran SanaRakenne-luokkaan seuraavien sanojen arpomista varten. Sanat tallennetaan siis 2mn kertaa, jossa m=ketjun aste ja n=erilaisten sanojen määrä. Tilavaativuus on siis O(mn).
